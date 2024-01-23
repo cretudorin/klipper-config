@@ -1,0 +1,1923 @@
+-------------------- Log Start | Sun Jan 21 12:55:57 2024 --------------------
+data_path: /home/dietpi/printer_data
+is_default_data_path: False
+config_file: /home/dietpi/printer_data/config/moonraker.conf
+startup_warnings: []
+verbose: False
+debug: False
+asyncio_debug: False
+is_backup_config: False
+is_python_package: False
+instance_uuid: b777dcf7ec8f45e0be825669e1e270a6
+unix_socket_path: /home/dietpi/printer_data/comms/moonraker.sock
+software_version: v0.8.0-241-gca59516
+git_branch: master
+git_remote: origin
+git_repo_url: https://github.com/Arksine/moonraker.git
+modified_files: []
+unofficial_components: []
+log_file: /home/dietpi/printer_data/logs/moonraker.log
+python_version: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+launch_args: /home/dietpi/moonraker-env/bin/python /home/dietpi/moonraker/moonraker/moonraker.py -d /home/dietpi/printer_data
+msgspec_enabled: False
+uvloop_enabled: False
+
+#################### Moonraker Configuration ####################
+
+[server]
+host = 0.0.0.0
+port = 7125
+klippy_uds_address = /home/dietpi/printer_data/comms/klippy.sock
+
+[authorization]
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+cors_domains = 
+	*.lan
+	*.local
+	*://localhost
+	*://localhost:*
+	*://my.mainsail.xyz
+	*://app.fluidd.xyz
+
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+channel = dev
+refresh_interval = 168
+
+[update_manager mainsail-config]
+type = git_repo
+primary_branch = master
+path = ~/mainsail-config
+origin = https://github.com/mainsail-crew/mainsail-config.git
+managed_services = klipper
+
+[update_manager mainsail]
+type = web
+channel = stable
+repo = mainsail-crew/mainsail
+path = ~/mainsail
+
+[update_manager crowsnest]
+type = git_repo
+path = ~/crowsnest
+origin = https://github.com/mainsail-crew/crowsnest.git
+managed_services = crowsnest
+install_script = tools/pkglist.sh
+
+[power nous4]
+type = homeassistant
+address = 192.168.178.60
+port = 8123
+protocol = http
+device = switch.nous4_switch
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDRhNDc5ZDg4NDk0OGIwYjMzMzQ4YmUwN2RjNTY3ZiIsImlhdCI6MTY5NzQ2Mjc2NSwiZXhwIjoyMDEyODIyNzY1fQ.LXp-8zcFRI-cDFT5TIncg8M7f6o0iV-iMp04tnVa2N8
+domain = switch
+bound_services = klipper
+locked_while_printing = True
+on_when_job_queued = True
+restart_klipper_when_powered = True
+restart_delay = 2
+
+[update_manager moonraker-obico]
+type = git_repo
+path = /home/dietpi/moonraker-obico
+origin = https://github.com/TheSpaghettiDetective/moonraker-obico.git
+env = /home/dietpi/moonraker-obico/../moonraker-obico-env/bin/python
+requirements = requirements.txt
+install_script = install.sh
+managed_services = 
+	moonraker-obico
+
+#################################################################
+All Configuration Files:
+/home/dietpi/printer_data/config/moonraker.conf
+/home/dietpi/printer_data/config/moonraker-obico-update.cfg
+#################################################################
+2024-01-21 13:55:57,608 [confighelper.py:read_file()] - Configuration File '/home/dietpi/printer_data/config/moonraker.conf' parsed, total size: 1744 B
+2024-01-21 13:55:57,608 [server.py:add_log_rollover_item()] - 
+#################### Moonraker Configuration ####################
+
+[server]
+host = 0.0.0.0
+port = 7125
+klippy_uds_address = /home/dietpi/printer_data/comms/klippy.sock
+
+[authorization]
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+cors_domains = 
+	*.lan
+	*.local
+	*://localhost
+	*://localhost:*
+	*://my.mainsail.xyz
+	*://app.fluidd.xyz
+
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+channel = dev
+refresh_interval = 168
+
+[update_manager mainsail-config]
+type = git_repo
+primary_branch = master
+path = ~/mainsail-config
+origin = https://github.com/mainsail-crew/mainsail-config.git
+managed_services = klipper
+
+[update_manager mainsail]
+type = web
+channel = stable
+repo = mainsail-crew/mainsail
+path = ~/mainsail
+
+[update_manager crowsnest]
+type = git_repo
+path = ~/crowsnest
+origin = https://github.com/mainsail-crew/crowsnest.git
+managed_services = crowsnest
+install_script = tools/pkglist.sh
+
+[power nous4]
+type = homeassistant
+address = 192.168.178.60
+port = 8123
+protocol = http
+device = switch.nous4_switch
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDRhNDc5ZDg4NDk0OGIwYjMzMzQ4YmUwN2RjNTY3ZiIsImlhdCI6MTY5NzQ2Mjc2NSwiZXhwIjoyMDEyODIyNzY1fQ.LXp-8zcFRI-cDFT5TIncg8M7f6o0iV-iMp04tnVa2N8
+domain = switch
+bound_services = klipper
+locked_while_printing = True
+on_when_job_queued = True
+restart_klipper_when_powered = True
+restart_delay = 2
+
+[update_manager moonraker-obico]
+type = git_repo
+path = /home/dietpi/moonraker-obico
+origin = https://github.com/TheSpaghettiDetective/moonraker-obico.git
+env = /home/dietpi/moonraker-obico/../moonraker-obico-env/bin/python
+requirements = requirements.txt
+install_script = install.sh
+managed_services = 
+	moonraker-obico
+
+#################################################################
+All Configuration Files:
+/home/dietpi/printer_data/config/moonraker.conf
+/home/dietpi/printer_data/config/moonraker-obico-update.cfg
+#################################################################
+2024-01-21 13:55:57,756 [server.py:load_component()] - Component (dbus_manager) loaded
+2024-01-21 13:55:57,855 [server.py:add_log_rollover_item()] - 
+Database Versions: pylmdb = 1.4.1, lmdb = (0, 9, 29)
+Unsafe Shutdown Count: 4
+2024-01-21 13:55:57,871 [server.py:load_component()] - Component (database) loaded
+2024-01-21 13:55:57,939 [file_manager.py:__init__()] - Using File System Observer: inotify
+2024-01-21 13:55:58,007 [server.py:load_component()] - Component (file_manager) loaded
+2024-01-21 13:55:58,015 [server.py:load_component()] - Component (klippy_apis) loaded
+2024-01-21 13:55:58,094 [server.py:load_component()] - Component (secrets) loaded
+2024-01-21 13:55:58,105 [server.py:load_component()] - Component (template) loaded
+2024-01-21 13:55:58,122 [server.py:add_log_rollover_item()] - 
+System Info:
+
+***python***
+  version: (3, 11, 2, 'final', 0)
+  version_string: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+
+***cpu_info***
+  cpu_count: 8
+  bits: 32bit
+  processor: armv7l
+  cpu_desc: ARMv7 Processor rev 3 (v7l)
+  serial_number: 0
+  hardware_desc: Samsung Exynos (Flattened Device Tree)
+  model: 
+  total_memory: 2036572
+  memory_units: kB
+
+***sd_info***
+  manufacturer_id: 03
+  manufacturer: Sandisk
+  oem_id: 5344
+  product_name: SC32G
+  product_revision: 8.0
+  serial_number: 2c9e3bfd
+  manufacturer_date: 6/2018
+  capacity: 29.7 GiB
+  total_bytes: 31914983424
+
+***distribution***
+  name: Debian GNU/Linux 12 (bookworm)
+  id: debian
+  version: 12
+  version_parts: {'major': '12', 'minor': '', 'build_number': ''}
+  like: 
+  codename: bookworm
+  release_info: {}
+
+***virtualization***
+  virt_type: none
+  virt_identifier: none
+
+***network***
+
+***canbus***
+
+***Allowed Services***
+  klipper_mcu
+  webcamd
+  MoonCord
+  KlipperScreen
+  moonraker-telegram-bot
+  moonraker-obico
+  sonar
+  crowsnest
+  octoeverywhere
+  ratos-configurator
+2024-01-21 13:55:58,128 [server.py:load_component()] - Component (shell_command) loaded
+2024-01-21 13:55:58,129 [machine.py:__init__()] - Using System Provider: systemd_dbus
+2024-01-21 13:55:58,136 [server.py:load_component()] - Component (machine) loaded
+2024-01-21 13:55:58,143 [server.py:load_component()] - Component (data_store) loaded
+2024-01-21 13:55:58,149 [proc_stats.py:__init__()] - Unable to find 'vcgencmd', throttle checking disabled
+2024-01-21 13:55:58,150 [server.py:load_component()] - Component (proc_stats) loaded
+2024-01-21 13:55:58,154 [server.py:load_component()] - Component (job_state) loaded
+2024-01-21 13:55:58,161 [server.py:load_component()] - Component (job_queue) loaded
+2024-01-21 13:55:58,176 [server.py:load_component()] - Component (http_client) loaded
+2024-01-21 13:55:58,189 [server.py:load_component()] - Component (announcements) loaded
+2024-01-21 13:55:58,197 [server.py:load_component()] - Component (webcam) loaded
+2024-01-21 13:55:58,201 [server.py:load_component()] - Component (extensions) loaded
+2024-01-21 13:55:58,207 [server.py:load_component()] - Component (history) loaded
+2024-01-21 13:55:58,290 [base_deploy.py:log_info()] - Git Repo moonraker: Detected virtualenv: /home/dietpi/moonraker-env
+2024-01-21 13:55:58,294 [base_deploy.py:log_info()] - Git Repo klipper: Detected virtualenv: /home/dietpi/klippy-env
+2024-01-21 13:55:58,307 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Option 'env' is deprecated, use 'virtualenv' instead.
+2024-01-21 13:55:58,309 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Detected virtualenv: /home/dietpi/moonraker-obico-env
+2024-01-21 13:55:58,315 [server.py:load_component()] - Component (update_manager) loaded
+2024-01-21 13:55:58,345 [authorization.py:__init__()] - Authorization Configuration Loaded
+Trusted Clients:
+10.0.0.0/8
+127.0.0.0/8
+169.254.0.0/16
+172.16.0.0/12
+192.168.0.0/16
+fe80::/10
+::1/128
+CORS Domains:
+.*\.lan
+.*\.local
+.*://localhost
+.*://localhost:.*
+.*://my\.mainsail\.xyz
+.*://app\.fluidd\.xyz
+2024-01-21 13:55:58,349 [server.py:load_component()] - Component (authorization) loaded
+2024-01-21 13:55:58,361 [power.py:__init__()] - Power component loading devices: ['power nous4']
+2024-01-21 13:55:58,375 [server.py:load_component()] - Component (power) loaded
+2024-01-21 13:55:58,386 [server.py:load_component()] - Component (octoprint_compat) loaded
+2024-01-21 13:55:58,391 [server.py:_initialize_component()] - Performing Component Post Init: [dbus_manager]
+2024-01-21 13:55:58,687 [server.py:_initialize_component()] - Performing Component Post Init: [file_manager]
+2024-01-21 13:55:58,819 [server.py:_initialize_component()] - Performing Component Post Init: [machine]
+2024-01-21 13:55:58,820 [machine.py:validation_init()] - Installation version in database up to date
+2024-01-21 13:55:59,580 [machine.py:check_virt_status()] - No Virtualization Detected
+2024-01-21 13:55:59,596 [machine.py:_find_public_ip()] - Detected Local IP: 192.168.178.63
+2024-01-21 13:55:59,597 [webcam.py:_set_default_host_ip()] - Default public webcam address set: http://192.168.178.63
+2024-01-21 13:55:59,701 [server.py:add_log_rollover_item()] - 
+Systemd unit moonraker.service:
+unit_name: moonraker.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['network-online.target', '-.mount', 'sysinit.target', 'system.slice']
+**After=['sysinit.target', 'network-online.target', 'basic.target', 'system.slice', '-.mount', 'systemd-journald.socket']
+**SupplementaryGroups=['moonraker-admin']
+**EnvironmentFiles=/home/dietpi/printer_data/systemd/moonraker.env
+**ExecStart=/home/dietpi/moonraker-env/bin/python $MOONRAKER_ARGS
+**WorkingDirectory=/home/dietpi/moonraker
+**FragmentPath=/etc/systemd/system/moonraker.service
+**Description=API Server for Klipper SV1
+**User=dietpi
+2024-01-21 13:55:59,701 [server.py:_initialize_component()] - Performing Component Post Init: [proc_stats]
+2024-01-21 13:55:59,702 [server.py:_initialize_component()] - Performing Component Post Init: [announcements]
+2024-01-21 13:55:59,702 [server.py:_initialize_component()] - Performing Component Post Init: [webcam]
+2024-01-21 13:55:59,703 [webcam.py:_set_default_host_ip()] - Default public webcam address set: http://192.168.178.63
+2024-01-21 13:55:59,703 [server.py:_initialize_component()] - Performing Component Post Init: [klippy_connection]
+2024-01-21 13:55:59,704 [server.py:add_log_rollover_item()] - 
+Systemd unit klipper.service:
+unit_name: klipper.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['system.slice', '-.mount', 'sysinit.target']
+**After=['sysinit.target', 'system.slice', 'klipper-mcu.service', 'basic.target', 'network-online.target', 'systemd-journald.socket', '-.mount']
+**SupplementaryGroups=[]
+**EnvironmentFiles=/home/dietpi/printer_data/systemd/klipper.env
+**ExecStart=/home/dietpi/klippy-env/bin/python $KLIPPER_ARGS
+**WorkingDirectory=/home/dietpi/klipper
+**FragmentPath=/etc/systemd/system/klipper.service
+**Description=Klipper 3D Printer Firmware SV1
+**User=dietpi
+2024-01-21 13:55:59,704 [server.py:_initialize_component()] - Performing Component Post Init: [history]
+2024-01-21 13:55:59,707 [server.py:_initialize_component()] - Performing Component Post Init: [update_manager]
+2024-01-21 13:55:59,709 [server.py:_initialize_component()] - Performing Component Post Init: [authorization]
+2024-01-21 13:55:59,709 [server.py:_initialize_component()] - Performing Component Post Init: [power]
+2024-01-21 13:55:59,709 [power.py:_setup_bound_services()] - Power Device 'nous4' bound to services: klipper
+2024-01-21 13:56:00,522 [base_deploy.py:log_info()] - PackageDeploy: PackageKit Provider Configured
+2024-01-21 13:56:00,523 [base_deploy.py:log_info()] - Git Repo moonraker: Stored pip version: 23.3.1
+2024-01-21 13:56:00,710 [extensions.py:start_unix_server()] - Creating Unix Domain Socket at '/home/dietpi/printer_data/comms/moonraker.sock'
+2024-01-21 13:56:00,714 [server.py:start_server()] - Starting Moonraker on (0.0.0.0, 7125), Hostname: xu4
+2024-01-21 13:56:00,719 [app.py:listen()] - SSL Certificate/Key not configured, aborting HTTPS Server startup
+2024-01-21 13:56:00,972 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 13:56:01,080 [server.py:add_log_rollover_item()] - 
+Systemd unit klipper.service:
+unit_name: klipper.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['sysinit.target', '-.mount', 'system.slice']
+**After=['system.slice', 'systemd-journald.socket', 'basic.target', 'klipper-mcu.service', 'network-online.target', 'sysinit.target', '-.mount']
+**SupplementaryGroups=[]
+**EnvironmentFiles=/home/dietpi/printer_data/systemd/klipper.env
+**ExecStart=/home/dietpi/klippy-env/bin/python $KLIPPER_ARGS
+**WorkingDirectory=/home/dietpi/klipper
+**FragmentPath=/etc/systemd/system/klipper.service
+**Description=Klipper 3D Printer Firmware SV1
+**User=dietpi
+2024-01-21 13:56:01,334 [server.py:add_log_rollover_item()] - Klipper Version: v0.12.0-55-gb5025580
+2024-01-21 13:56:01,348 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 13:56:01,350 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 13:56:01,600 [job_state.py:_handle_started()] - Job state initialized: standby
+2024-01-21 13:56:01,860 [klippy_connection.py:_check_ready()] - Klippy ready
+2024-01-21 13:56:02,353 [data_store.py:_init_sensors()] - Configuring available sensors: ['temperature_sensor host', 'heater_bed', 'temperature_sensor mcu_temp', 'extruder']
+2024-01-21 13:56:10,518 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.22
+2024-01-21 13:56:10,523 [app.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 8.21ms
+2024-01-21 13:56:10,524 [websockets.py:open()] - Websocket Opened: ID: 2821323728, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 13:56:10,549 [websockets.py:_handle_identify()] - Websocket 2821323728 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 13:56:11,327 [base_deploy.py:log_info()] - PackageKit: Detected 0 package updates:
+
+2024-01-21 13:56:11,371 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker status --porcelain -b) successfully finished
+2024-01-21 13:56:11,420 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker branch --list --no-color) successfully finished
+2024-01-21 13:56:11,452 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker remote get-url origin) successfully finished
+2024-01-21 13:56:13,431 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker fetch origin --prune --progress) successfully finished
+2024-01-21 13:56:13,500 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 13:56:13,531 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-parse HEAD) successfully finished
+2024-01-21 13:56:13,598 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 13:56:13,628 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-parse origin/master) successfully finished
+2024-01-21 13:56:13,663 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 13:56:13,693 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-list HEAD..a23187b4afa632da8a90cb9eae83f0f6a5eec903 --count) successfully finished
+2024-01-21 13:56:13,722 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker log ca595163bb44ddd6bbaac3d698dc31f23ef58777..origin/master --format="sha:%H%x1Dauthor:%an%x1Ddate:%ct%x1Dsubject:%s%x1Dmessage:%b%x1E" --max-count=100) successfully finished
+2024-01-21 13:56:13,795 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker for-each-ref --count=100 --sort='-creatordate' --contains=HEAD --merged=origin/master --format='%(if)%(*objecttype)%(then)%(*objecttype) %(*objectname)%(else)%(objecttype) %(objectname)%(end) %(refname)' 'refs/tags') successfully finished
+2024-01-21 13:56:13,796 [git_deploy.py:log_repo_info()] - Git Repo moonraker Detected:
+Owner: Arksine
+Repository Name: moonraker
+Path: /home/dietpi/moonraker
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Arksine/moonraker.git
+Recovery URL: https://github.com/Arksine/moonraker.git
+Current Commit SHA: ca595163bb44ddd6bbaac3d698dc31f23ef58777
+Upstream Commit SHA: a23187b4afa632da8a90cb9eae83f0f6a5eec903
+Current Version: v0.8.0-241-gca595163
+Upstream Version: v0.8.0-268-ga23187b4
+Rollback Commit: c226e9c1e44d65ff6ea400b81e3cedba7f637976
+Rollback Branch: master
+Rollback Version: v0.8.0-234-gc226e9c1
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 27
+Diverged: False
+2024-01-21 13:56:13,796 [base_deploy.py:log_info()] - Git Repo moonraker: Channel: dev
+2024-01-21 13:56:13,797 [base_deploy.py:log_info()] - Git Repo moonraker: Validity check for git repo passed
+2024-01-21 13:56:13,892 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper status --porcelain -b) successfully finished
+2024-01-21 13:56:13,970 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper branch --list --no-color) successfully finished
+2024-01-21 13:56:14,028 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper remote get-url origin) successfully finished
+2024-01-21 13:56:17,164 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper fetch origin --prune --progress) successfully finished
+2024-01-21 13:56:17,198 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 13:56:17,226 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-parse HEAD) successfully finished
+2024-01-21 13:56:17,454 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 13:56:17,481 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-parse origin/master) successfully finished
+2024-01-21 13:56:17,651 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 13:56:17,674 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-list HEAD..d785b396a72b57c073ce5bdf7a9d5e9fe39fc914 --count) successfully finished
+2024-01-21 13:56:17,707 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper log b502558052f40339baa04fcfcbbeb65aa77dc1d8..origin/master --format="sha:%H%x1Dauthor:%an%x1Ddate:%ct%x1Dsubject:%s%x1Dmessage:%b%x1E" --max-count=100) successfully finished
+2024-01-21 13:56:17,884 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper for-each-ref --count=100 --sort='-creatordate' --contains=HEAD --merged=origin/master --format='%(if)%(*objecttype)%(then)%(*objecttype) %(*objectname)%(else)%(objecttype) %(objectname)%(end) %(refname)' 'refs/tags') successfully finished
+2024-01-21 13:56:17,884 [git_deploy.py:log_repo_info()] - Git Repo klipper Detected:
+Owner: Klipper3d
+Repository Name: klipper
+Path: /home/dietpi/klipper
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Klipper3d/klipper
+Recovery URL: https://github.com/Klipper3d/klipper
+Current Commit SHA: b502558052f40339baa04fcfcbbeb65aa77dc1d8
+Upstream Commit SHA: d785b396a72b57c073ce5bdf7a9d5e9fe39fc914
+Current Version: v0.12.0-55-gb5025580
+Upstream Version: v0.12.0-85-gd785b396
+Rollback Commit: 6f686ddee3c65037bfcdfc93a3d8bf42a488e725
+Rollback Branch: master
+Rollback Version: v0.12.0-54-g6f686dde
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 30
+Diverged: False
+2024-01-21 13:56:17,884 [base_deploy.py:log_info()] - Git Repo klipper: Channel: dev
+2024-01-21 13:56:17,884 [base_deploy.py:log_info()] - Git Repo klipper: Validity check for git repo passed
+2024-01-21 13:56:17,944 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config status --porcelain -b) successfully finished
+2024-01-21 13:56:17,982 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config branch --list --no-color) successfully finished
+2024-01-21 13:56:18,025 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config remote get-url origin) successfully finished
+2024-01-21 13:56:18,832 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config fetch origin --prune --progress) successfully finished
+2024-01-21 13:56:18,866 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 13:56:18,889 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config rev-parse HEAD) successfully finished
+2024-01-21 13:56:18,929 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 13:56:18,954 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config rev-parse origin/master) successfully finished
+2024-01-21 13:56:18,975 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 13:56:18,993 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config rev-list HEAD..e57810d51b5c634aadaca4db923bfcba269ae4b3 --count) successfully finished
+2024-01-21 13:56:18,995 [git_deploy.py:log_repo_info()] - Git Repo mainsail-config Detected:
+Owner: mainsail-crew
+Repository Name: mainsail-config
+Path: /home/dietpi/mainsail-config
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/mainsail-config.git
+Recovery URL: https://github.com/mainsail-crew/mainsail-config.git
+Current Commit SHA: e57810d51b5c634aadaca4db923bfcba269ae4b3
+Upstream Commit SHA: e57810d51b5c634aadaca4db923bfcba269ae4b3
+Current Version: v1.2.1-0-ge57810d5
+Upstream Version: v1.2.1-0-ge57810d5
+Rollback Commit: 76a9999986b03abb3aed272dc0a818f13a18ea7e
+Rollback Branch: master
+Rollback Version: v1.1.0-1-g76a99999
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 13:56:18,995 [base_deploy.py:log_info()] - Git Repo mainsail-config: Channel: dev
+2024-01-21 13:56:18,995 [base_deploy.py:log_info()] - Git Repo mainsail-config: Validity check for git repo passed
+2024-01-21 13:56:19,447 [web_deploy.py:_log_client_info()] - Web Client mainsail Detected:
+Repo: mainsail-crew/mainsail
+Channel: stable
+Path: /home/dietpi/mainsail
+Local Version: v2.9.0
+Remote Version: v2.9.1
+Valid: True
+Fallback Client Detected: False
+Pre-release: False
+Download Url: https://github.com/mainsail-crew/mainsail/releases/download/v2.9.1/mainsail.zip
+Download Size: 2071443
+Content Type: application/zip
+Rollback Version: v2.8.0
+Rollback Repo: mainsail-crew/mainsail
+2024-01-21 13:56:19,505 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest status --porcelain -b) successfully finished
+2024-01-21 13:56:19,538 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest branch --list --no-color) successfully finished
+2024-01-21 13:56:19,572 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest remote get-url origin) successfully finished
+2024-01-21 13:56:20,860 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest fetch origin --prune --progress) successfully finished
+2024-01-21 13:56:20,899 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 13:56:20,924 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-parse HEAD) successfully finished
+2024-01-21 13:56:20,965 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 13:56:20,979 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-parse origin/master) successfully finished
+2024-01-21 13:56:21,019 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 13:56:21,045 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-list HEAD..c0c9c418c8e7d6158bfd7bb51a184ab20b77d075 --count) successfully finished
+2024-01-21 13:56:21,064 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest log f7ac6aa298143f0019eae9b2b2be8039196ebeda..origin/master --format="sha:%H%x1Dauthor:%an%x1Ddate:%ct%x1Dsubject:%s%x1Dmessage:%b%x1E" --max-count=100) successfully finished
+2024-01-21 13:56:21,119 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest for-each-ref --count=100 --sort='-creatordate' --contains=HEAD --merged=origin/master --format='%(if)%(*objecttype)%(then)%(*objecttype) %(*objectname)%(else)%(objecttype) %(objectname)%(end) %(refname)' 'refs/tags') successfully finished
+2024-01-21 13:56:21,120 [git_deploy.py:log_repo_info()] - Git Repo crowsnest Detected:
+Owner: mainsail-crew
+Repository Name: crowsnest
+Path: /home/dietpi/crowsnest
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/crowsnest.git
+Recovery URL: https://github.com/mainsail-crew/crowsnest.git
+Current Commit SHA: f7ac6aa298143f0019eae9b2b2be8039196ebeda
+Upstream Commit SHA: c0c9c418c8e7d6158bfd7bb51a184ab20b77d075
+Current Version: v4.1.1-1-gf7ac6aa2
+Upstream Version: v4.1.3-1-gc0c9c418
+Rollback Commit: f7ac6aa298143f0019eae9b2b2be8039196ebeda
+Rollback Branch: master
+Rollback Version: v4.1.1-1-gf7ac6aa2
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 19
+Diverged: False
+2024-01-21 13:56:21,121 [base_deploy.py:log_info()] - Git Repo crowsnest: Channel: dev
+2024-01-21 13:56:21,121 [base_deploy.py:log_info()] - Git Repo crowsnest: Validity check for git repo passed
+2024-01-21 13:56:21,230 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico status --porcelain -b) successfully finished
+2024-01-21 13:56:21,271 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico branch --list --no-color) successfully finished
+2024-01-21 13:56:21,298 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico remote get-url origin) successfully finished
+2024-01-21 13:56:22,323 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico fetch origin --prune --progress) successfully finished
+2024-01-21 13:56:22,336 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 13:56:22,351 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico rev-parse HEAD) successfully finished
+2024-01-21 13:56:22,370 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 13:56:22,399 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico rev-parse origin/master) successfully finished
+2024-01-21 13:56:22,422 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 13:56:22,433 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico rev-list HEAD..1dc1b19c7ab53e15d89c6edbdf34a635439aad0c --count) successfully finished
+2024-01-21 13:56:22,433 [git_deploy.py:log_repo_info()] - Git Repo moonraker-obico Detected:
+Owner: TheSpaghettiDetective
+Repository Name: moonraker-obico
+Path: /home/dietpi/moonraker-obico
+Remote: origin
+Branch: master
+Remote URL: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+Recovery URL: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+Current Commit SHA: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Upstream Commit SHA: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Current Version: v1.5.4-0-g1dc1b19c
+Upstream Version: v1.5.4-0-g1dc1b19c
+Rollback Commit: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Rollback Branch: master
+Rollback Version: v1.5.4-0-g1dc1b19c
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 13:56:22,434 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Channel: dev
+2024-01-21 13:56:22,434 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Validity check for git repo passed
+2024-01-21 13:56:23,957 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.60
+2024-01-21 13:56:23,962 [app.py:log_request()] - 101 GET /websocket (192.168.178.60) [_TRUSTED_USER_] 7.96ms
+2024-01-21 13:56:23,964 [websockets.py:open()] - Websocket Opened: ID: 2821192112, Proxied: False, User Agent: HomeAssistant/2024.1.5 aiohttp/3.9.1 Python/3.11, Host Name: 192.168.178.63
+2024-01-21 13:56:29,816 [websockets.py:on_close()] - Websocket Closed: ID: 2821323728 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 9.29
+2024-01-21 13:56:30,157 [app.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 2.07ms
+2024-01-21 13:56:30,158 [websockets.py:open()] - Websocket Opened: ID: 2821600880, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 13:56:30,177 [websockets.py:_handle_identify()] - Websocket 2821600880 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 14:04:03,605 [app.py:prepare()] - Upload Request Received from 192.168.178.22
+Content-Type: multipart/form-data; boundary=------------------------16ca4a9d71a96eb6
+2024-01-21 14:04:04,489 [app.py:post()] - Processing Uploaded File: odroid_c4_case_remix_bottom_2h42m_0.20mm_205C_PLA_ENDER3V2.gcode
+2024-01-21 14:04:04,896 [shell_command.py:pipe_data_received()] - INFO:metadata:Object Processing is disabled
+
+2024-01-21 14:04:05,009 [shell_command.py:_check_proc_success()] - Command (/home/dietpi/moonraker-env/bin/python /home/dietpi/moonraker/moonraker/components/file_manager/metadata.py -p /home/dietpi/printer_data/gcodes -f "odroid_c4_case_remix_bottom_2h42m_0.20mm_205C_PLA_ENDER3V2.gcode") successfully finished
+2024-01-21 14:04:05,031 [app.py:log_request()] - 201 POST /server/files/upload (192.168.178.22) [_TRUSTED_USER_] 1433.26ms
+2024-01-21 14:04:24,973 [app.py:prepare()] - Upload Request Received from 192.168.178.22
+Content-Type: multipart/form-data; boundary=------------------------ec7956a868345e2d
+2024-01-21 14:04:25,989 [app.py:post()] - Processing Uploaded File: odroid_c4_case_remix_top-holes_3h10m_0.20mm_205C_PLA_ENDER3V2.gcode
+2024-01-21 14:04:26,359 [shell_command.py:pipe_data_received()] - INFO:metadata:Object Processing is disabled
+
+2024-01-21 14:04:26,469 [shell_command.py:_check_proc_success()] - Command (/home/dietpi/moonraker-env/bin/python /home/dietpi/moonraker/moonraker/components/file_manager/metadata.py -p /home/dietpi/printer_data/gcodes -f "odroid_c4_case_remix_top-holes_3h10m_0.20mm_205C_PLA_ENDER3V2.gcode") successfully finished
+2024-01-21 14:04:26,486 [app.py:log_request()] - 201 POST /server/files/upload (192.168.178.22) [_TRUSTED_USER_] 1516.29ms
+2024-01-21 14:05:00,167 [websockets.py:write_to_socket()] - Websocket closed while writing: 2821600880
+2024-01-21 14:05:05,168 [websockets.py:on_close()] - Websocket Closed: ID: 2821600880 Close Code: None, Close Reason: None, Pong Time Elapsed: 45.00
+2024-01-21 14:06:34,776 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.56
+2024-01-21 14:06:34,783 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 12.15ms
+2024-01-21 14:06:34,784 [websockets.py:open()] - Websocket Opened: ID: 2822105008, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 14:06:34,914 [websockets.py:_handle_identify()] - Websocket 2822105008 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 14:06:40,385 [job_state.py:_status_update()] - Job Started: odroid_c4_case_remix_top-holes_3h10m_0.20mm_205C_PLA_ENDER3V2.gcode
+2024-01-21 14:09:31,084 [websockets.py:on_close()] - Websocket Closed: ID: 2822105008 Close Code: None, Close Reason: None, Pong Time Elapsed: 6.26
+2024-01-21 14:13:45,600 [app.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 14.46ms
+2024-01-21 14:13:45,603 [websockets.py:open()] - Websocket Opened: ID: 2821255248, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 14:13:45,616 [websockets.py:_handle_identify()] - Websocket 2821255248 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 14:14:35,616 [websockets.py:write_to_socket()] - Websocket closed while writing: 2821255248
+2024-01-21 14:14:40,610 [websockets.py:on_close()] - Websocket Closed: ID: 2821255248 Close Code: None, Close Reason: None, Pong Time Elapsed: 45.00
+2024-01-21 15:00:56,717 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.66ms
+2024-01-21 15:00:56,719 [websockets.py:open()] - Websocket Opened: ID: 2821192368, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:00:56,851 [websockets.py:_handle_identify()] - Websocket 2821192368 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:00:59,730 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.60
+2024-01-21 15:01:45,589 [websockets.py:on_close()] - Websocket Closed: ID: 2821192368 Close Code: None, Close Reason: None, Pong Time Elapsed: 8.85
+2024-01-21 15:01:50,314 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.24ms
+2024-01-21 15:01:50,316 [websockets.py:open()] - Websocket Opened: ID: 2821196048, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:01:50,389 [websockets.py:_handle_identify()] - Websocket 2821196048 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:02:09,442 [websockets.py:on_close()] - Websocket Closed: ID: 2821196048 Close Code: None, Close Reason: None, Pong Time Elapsed: 8.94
+2024-01-21 15:04:52,369 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 14.20ms
+2024-01-21 15:04:52,372 [websockets.py:open()] - Websocket Opened: ID: 2821517040, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:04:52,484 [websockets.py:_handle_identify()] - Websocket 2821517040 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:04:58,619 [websockets.py:on_close()] - Websocket Closed: ID: 2821517040 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 6.26
+2024-01-21 15:04:58,934 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.59ms
+2024-01-21 15:04:58,936 [websockets.py:open()] - Websocket Opened: ID: 2822055408, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:04:58,983 [websockets.py:_handle_identify()] - Websocket 2822055408 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:05:08,636 [websockets.py:on_close()] - Websocket Closed: ID: 2822055408 Close Code: None, Close Reason: None, Pong Time Elapsed: 9.71
+2024-01-21 15:10:22,632 [klippy_connection.py:_process_status_update()] - Klippy has shutdown
+2024-01-21 15:10:22,674 [proc_stats.py:_handle_shutdown()] - 
+Moonraker System Usage Statistics:
+System Time: 1705846193.066941, Usage: 5.45%, Memory: 32800 kB
+System Time: 1705846194.067965, Usage: 5.71%, Memory: 32800 kB
+System Time: 1705846195.083224, Usage: 5.06%, Memory: 32800 kB
+System Time: 1705846196.069281, Usage: 14.52%, Memory: 32800 kB
+System Time: 1705846197.073379, Usage: 4.83%, Memory: 32800 kB
+System Time: 1705846198.078525, Usage: 4.89%, Memory: 32800 kB
+System Time: 1705846199.091575, Usage: 5.39%, Memory: 32800 kB
+System Time: 1705846200.101183, Usage: 7.33%, Memory: 32800 kB
+System Time: 1705846201.083438, Usage: 6.95%, Memory: 32800 kB
+System Time: 1705846202.085814, Usage: 4.99%, Memory: 32800 kB
+System Time: 1705846203.095690, Usage: 5.32%, Memory: 32800 kB
+System Time: 1705846204.097156, Usage: 6.98%, Memory: 32800 kB
+System Time: 1705846205.088549, Usage: 6.11%, Memory: 32800 kB
+System Time: 1705846206.091675, Usage: 5.12%, Memory: 32800 kB
+System Time: 1705846207.105011, Usage: 5.34%, Memory: 32800 kB
+System Time: 1705846208.103869, Usage: 6.37%, Memory: 32800 kB
+System Time: 1705846209.095646, Usage: 6.26%, Memory: 32800 kB
+System Time: 1705846210.100389, Usage: 5.84%, Memory: 32800 kB
+System Time: 1705846211.114287, Usage: 4.62%, Memory: 32800 kB
+System Time: 1705846212.116052, Usage: 5.76%, Memory: 32800 kB
+System Time: 1705846213.108045, Usage: 5.88%, Memory: 32800 kB
+System Time: 1705846214.108340, Usage: 6.46%, Memory: 32800 kB
+System Time: 1705846215.118251, Usage: 4.87%, Memory: 32800 kB
+System Time: 1705846216.118371, Usage: 5.66%, Memory: 32800 kB
+System Time: 1705846217.114823, Usage: 5.69%, Memory: 32800 kB
+System Time: 1705846218.107673, Usage: 4.68%, Memory: 32800 kB
+System Time: 1705846219.122265, Usage: 4.63%, Memory: 32800 kB
+System Time: 1705846220.127375, Usage: 5.79%, Memory: 32800 kB
+System Time: 1705846221.132568, Usage: 5.03%, Memory: 32800 kB
+System Time: 1705846222.132791, Usage: 5.32%, Memory: 32800 kB
+CPU Temperature: 39.0
+2024-01-21 15:11:08,385 [app.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 19.66ms
+2024-01-21 15:11:08,386 [websockets.py:open()] - Websocket Opened: ID: 2821192976, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 15:11:08,393 [websockets.py:_handle_identify()] - Websocket 2821192976 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:11:12,006 [websockets.py:on_close()] - Websocket Closed: ID: 2821192976 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 3.63
+2024-01-21 15:11:12,345 [app.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 14.83ms
+2024-01-21 15:11:12,347 [websockets.py:open()] - Websocket Opened: ID: 2821190480, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 15:11:12,357 [websockets.py:_handle_identify()] - Websocket 2821190480 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:11:19,152 [power.py:process_bound_services()] - Power Device nous4: Performing stop action on bound service klipper
+2024-01-21 15:11:19,271 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:11:25,515 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:11:25,525 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:11:25,535 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:11:55,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:11:55,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:11:55,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:12:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:12:25,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:12:25,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:12:55,515 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:12:55,525 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:12:55,535 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:13:25,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:13:25,528 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:13:25,540 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:13:33,042 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 15.65ms
+2024-01-21 15:13:33,045 [websockets.py:open()] - Websocket Opened: ID: 2821204656, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:13:33,155 [websockets.py:_handle_identify()] - Websocket 2821204656 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:13:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:13:55,533 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:13:55,557 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:14:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:14:25,528 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:14:25,540 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:14:55,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:14:55,532 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:14:55,546 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:15:25,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:15:25,530 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:15:25,544 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:15:50,075 [websockets.py:on_close()] - Websocket Closed: ID: 2821204656 Close Code: None, Close Reason: None, Pong Time Elapsed: 7.02
+2024-01-21 15:15:55,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:15:55,531 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:15:55,544 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:16:24,587 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 15.21ms
+2024-01-21 15:16:24,589 [websockets.py:open()] - Websocket Opened: ID: 2821163344, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:16:24,614 [websockets.py:_handle_identify()] - Websocket 2821163344 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:16:25,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:16:25,533 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:16:25,546 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:16:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:16:55,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:16:55,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:17:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:17:25,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:17:25,536 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:17:55,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:17:55,525 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:17:55,536 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:18:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:18:25,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:18:25,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:18:48,138 [websockets.py:on_close()] - Websocket Closed: ID: 2821163344 Close Code: None, Close Reason: None, Pong Time Elapsed: 3.54
+2024-01-21 15:18:55,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:18:55,528 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:18:55,539 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:19:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:19:25,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:19:25,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:19:55,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:19:55,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:19:55,536 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:20:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:20:25,533 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:20:25,549 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:20:55,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:20:55,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:20:55,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:21:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:21:25,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:21:25,540 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:21:55,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:21:55,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:21:55,538 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:22:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:22:25,526 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:22:25,536 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:22:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:22:55,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:22:55,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:23:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:23:25,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:23:25,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:23:55,519 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:23:55,529 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:23:55,540 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:24:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:24:25,525 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:24:25,535 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:24:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:24:55,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:24:55,538 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:25:25,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:25:25,531 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:25:25,552 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:25:55,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:25:55,528 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:25:55,538 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:26:25,519 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:26:25,533 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:26:25,555 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:26:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:26:55,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:26:55,538 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:27:25,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:27:25,529 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:27:25,540 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:27:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:27:55,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:27:55,538 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:28:25,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:28:25,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:28:25,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:28:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:28:55,527 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:28:55,537 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:29:25,523 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:29:25,539 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:29:25,549 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:29:55,518 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:29:55,528 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:29:55,539 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:30:25,519 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:30:25,529 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:30:25,540 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:30:51,934 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.06ms
+2024-01-21 15:30:51,936 [websockets.py:open()] - Websocket Opened: ID: 2821104816, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:30:52,033 [websockets.py:_handle_identify()] - Websocket 2821104816 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:30:55,517 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:30:55,528 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:30:55,538 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:31:02,796 [websockets.py:on_close()] - Websocket Closed: ID: 2821104816 Close Code: None, Close Reason: None, Pong Time Elapsed: 0.85
+2024-01-21 15:31:25,516 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:31:25,525 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:31:25,535 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:31:42,257 [app.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.07ms
+2024-01-21 15:31:42,259 [websockets.py:open()] - Websocket Opened: ID: 2821248720, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:31:42,365 [websockets.py:_handle_identify()] - Websocket 2821248720 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:31:55,514 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:31:55,519 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:31:55,524 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:32:14,570 [base_deploy.py:log_info()] - PackageKit: Detected 0 package updates:
+
+2024-01-21 15:32:14,616 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker status --porcelain -b) successfully finished
+2024-01-21 15:32:14,670 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker branch --list --no-color) successfully finished
+2024-01-21 15:32:14,704 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker remote get-url origin) successfully finished
+2024-01-21 15:32:15,970 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:16,006 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:16,035 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-parse HEAD) successfully finished
+2024-01-21 15:32:16,092 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:16,110 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-parse origin/master) successfully finished
+2024-01-21 15:32:16,142 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:16,170 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-list HEAD..d10ce8772dc5bdf3195f89783cf2f858b3c33b50 --count) successfully finished
+2024-01-21 15:32:16,220 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker log ca595163bb44ddd6bbaac3d698dc31f23ef58777..origin/master --format="sha:%H%x1Dauthor:%an%x1Ddate:%ct%x1Dsubject:%s%x1Dmessage:%b%x1E" --max-count=100) successfully finished
+2024-01-21 15:32:16,323 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker for-each-ref --count=100 --sort='-creatordate' --contains=HEAD --merged=origin/master --format='%(if)%(*objecttype)%(then)%(*objecttype) %(*objectname)%(else)%(objecttype) %(objectname)%(end) %(refname)' 'refs/tags') successfully finished
+2024-01-21 15:32:16,324 [git_deploy.py:log_repo_info()] - Git Repo moonraker Detected:
+Owner: Arksine
+Repository Name: moonraker
+Path: /home/dietpi/moonraker
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Arksine/moonraker.git
+Recovery URL: https://github.com/Arksine/moonraker.git
+Current Commit SHA: ca595163bb44ddd6bbaac3d698dc31f23ef58777
+Upstream Commit SHA: d10ce8772dc5bdf3195f89783cf2f858b3c33b50
+Current Version: v0.8.0-241-gca595163
+Upstream Version: v0.8.0-283-gd10ce877
+Rollback Commit: c226e9c1e44d65ff6ea400b81e3cedba7f637976
+Rollback Branch: master
+Rollback Version: v0.8.0-234-gc226e9c1
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 42
+Diverged: False
+2024-01-21 15:32:16,325 [base_deploy.py:log_info()] - Git Repo moonraker: Channel: dev
+2024-01-21 15:32:16,325 [base_deploy.py:log_info()] - Git Repo moonraker: Validity check for git repo passed
+2024-01-21 15:32:16,436 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper status --porcelain -b) successfully finished
+2024-01-21 15:32:16,470 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper branch --list --no-color) successfully finished
+2024-01-21 15:32:16,502 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper remote get-url origin) successfully finished
+2024-01-21 15:32:17,350 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:17,389 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:17,404 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-parse HEAD) successfully finished
+2024-01-21 15:32:17,595 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:17,635 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-parse origin/master) successfully finished
+2024-01-21 15:32:17,780 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:17,827 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-list HEAD..d785b396a72b57c073ce5bdf7a9d5e9fe39fc914 --count) successfully finished
+2024-01-21 15:32:17,868 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper log b502558052f40339baa04fcfcbbeb65aa77dc1d8..origin/master --format="sha:%H%x1Dauthor:%an%x1Ddate:%ct%x1Dsubject:%s%x1Dmessage:%b%x1E" --max-count=100) successfully finished
+2024-01-21 15:32:18,072 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper for-each-ref --count=100 --sort='-creatordate' --contains=HEAD --merged=origin/master --format='%(if)%(*objecttype)%(then)%(*objecttype) %(*objectname)%(else)%(objecttype) %(objectname)%(end) %(refname)' 'refs/tags') successfully finished
+2024-01-21 15:32:18,075 [git_deploy.py:log_repo_info()] - Git Repo klipper Detected:
+Owner: Klipper3d
+Repository Name: klipper
+Path: /home/dietpi/klipper
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Klipper3d/klipper
+Recovery URL: https://github.com/Klipper3d/klipper
+Current Commit SHA: b502558052f40339baa04fcfcbbeb65aa77dc1d8
+Upstream Commit SHA: d785b396a72b57c073ce5bdf7a9d5e9fe39fc914
+Current Version: v0.12.0-55-gb5025580
+Upstream Version: v0.12.0-85-gd785b396
+Rollback Commit: 6f686ddee3c65037bfcdfc93a3d8bf42a488e725
+Rollback Branch: master
+Rollback Version: v0.12.0-54-g6f686dde
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 30
+Diverged: False
+2024-01-21 15:32:18,076 [base_deploy.py:log_info()] - Git Repo klipper: Channel: dev
+2024-01-21 15:32:18,076 [base_deploy.py:log_info()] - Git Repo klipper: Validity check for git repo passed
+2024-01-21 15:32:18,122 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config status --porcelain -b) successfully finished
+2024-01-21 15:32:18,145 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config branch --list --no-color) successfully finished
+2024-01-21 15:32:18,168 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config remote get-url origin) successfully finished
+2024-01-21 15:32:18,971 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:19,008 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:19,022 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config rev-parse HEAD) successfully finished
+2024-01-21 15:32:19,037 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:19,052 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config rev-parse origin/master) successfully finished
+2024-01-21 15:32:19,065 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:19,078 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/mainsail-config rev-list HEAD..e57810d51b5c634aadaca4db923bfcba269ae4b3 --count) successfully finished
+2024-01-21 15:32:19,079 [git_deploy.py:log_repo_info()] - Git Repo mainsail-config Detected:
+Owner: mainsail-crew
+Repository Name: mainsail-config
+Path: /home/dietpi/mainsail-config
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/mainsail-config.git
+Recovery URL: https://github.com/mainsail-crew/mainsail-config.git
+Current Commit SHA: e57810d51b5c634aadaca4db923bfcba269ae4b3
+Upstream Commit SHA: e57810d51b5c634aadaca4db923bfcba269ae4b3
+Current Version: v1.2.1-0-ge57810d5
+Upstream Version: v1.2.1-0-ge57810d5
+Rollback Commit: 76a9999986b03abb3aed272dc0a818f13a18ea7e
+Rollback Branch: master
+Rollback Version: v1.1.0-1-g76a99999
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:32:19,079 [base_deploy.py:log_info()] - Git Repo mainsail-config: Channel: dev
+2024-01-21 15:32:19,079 [base_deploy.py:log_info()] - Git Repo mainsail-config: Validity check for git repo passed
+2024-01-21 15:32:19,455 [web_deploy.py:_log_client_info()] - Web Client mainsail Detected:
+Repo: mainsail-crew/mainsail
+Channel: stable
+Path: /home/dietpi/mainsail
+Local Version: v2.9.0
+Remote Version: v2.9.1
+Valid: True
+Fallback Client Detected: False
+Pre-release: False
+Download Url: https://github.com/mainsail-crew/mainsail/releases/download/v2.9.1/mainsail.zip
+Download Size: 2071443
+Content Type: application/zip
+Rollback Version: v2.8.0
+Rollback Repo: mainsail-crew/mainsail
+2024-01-21 15:32:19,524 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest status --porcelain -b) successfully finished
+2024-01-21 15:32:19,560 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest branch --list --no-color) successfully finished
+2024-01-21 15:32:19,582 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest remote get-url origin) successfully finished
+2024-01-21 15:32:20,399 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:20,434 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:20,447 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-parse HEAD) successfully finished
+2024-01-21 15:32:20,486 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:20,517 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-parse origin/master) successfully finished
+2024-01-21 15:32:20,544 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:20,563 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-list HEAD..c0c9c418c8e7d6158bfd7bb51a184ab20b77d075 --count) successfully finished
+2024-01-21 15:32:20,580 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest log f7ac6aa298143f0019eae9b2b2be8039196ebeda..origin/master --format="sha:%H%x1Dauthor:%an%x1Ddate:%ct%x1Dsubject:%s%x1Dmessage:%b%x1E" --max-count=100) successfully finished
+2024-01-21 15:32:20,620 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest for-each-ref --count=100 --sort='-creatordate' --contains=HEAD --merged=origin/master --format='%(if)%(*objecttype)%(then)%(*objecttype) %(*objectname)%(else)%(objecttype) %(objectname)%(end) %(refname)' 'refs/tags') successfully finished
+2024-01-21 15:32:20,621 [git_deploy.py:log_repo_info()] - Git Repo crowsnest Detected:
+Owner: mainsail-crew
+Repository Name: crowsnest
+Path: /home/dietpi/crowsnest
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/crowsnest.git
+Recovery URL: https://github.com/mainsail-crew/crowsnest.git
+Current Commit SHA: f7ac6aa298143f0019eae9b2b2be8039196ebeda
+Upstream Commit SHA: c0c9c418c8e7d6158bfd7bb51a184ab20b77d075
+Current Version: v4.1.1-1-gf7ac6aa2
+Upstream Version: v4.1.3-1-gc0c9c418
+Rollback Commit: f7ac6aa298143f0019eae9b2b2be8039196ebeda
+Rollback Branch: master
+Rollback Version: v4.1.1-1-gf7ac6aa2
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 19
+Diverged: False
+2024-01-21 15:32:20,621 [base_deploy.py:log_info()] - Git Repo crowsnest: Channel: dev
+2024-01-21 15:32:20,622 [base_deploy.py:log_info()] - Git Repo crowsnest: Validity check for git repo passed
+2024-01-21 15:32:20,661 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico status --porcelain -b) successfully finished
+2024-01-21 15:32:20,702 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico branch --list --no-color) successfully finished
+2024-01-21 15:32:20,748 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico remote get-url origin) successfully finished
+2024-01-21 15:32:21,573 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:21,589 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:21,613 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico rev-parse HEAD) successfully finished
+2024-01-21 15:32:21,631 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:21,644 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico rev-parse origin/master) successfully finished
+2024-01-21 15:32:21,661 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:21,688 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker-obico rev-list HEAD..1dc1b19c7ab53e15d89c6edbdf34a635439aad0c --count) successfully finished
+2024-01-21 15:32:21,689 [git_deploy.py:log_repo_info()] - Git Repo moonraker-obico Detected:
+Owner: TheSpaghettiDetective
+Repository Name: moonraker-obico
+Path: /home/dietpi/moonraker-obico
+Remote: origin
+Branch: master
+Remote URL: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+Recovery URL: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+Current Commit SHA: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Upstream Commit SHA: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Current Version: v1.5.4-0-g1dc1b19c
+Upstream Version: v1.5.4-0-g1dc1b19c
+Rollback Commit: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Rollback Branch: master
+Rollback Version: v1.5.4-0-g1dc1b19c
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:32:21,689 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Channel: dev
+2024-01-21 15:32:21,689 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Validity check for git repo passed
+2024-01-21 15:32:23,351 [web_deploy.py:_log_client_info()] - Web Client mainsail Detected:
+Repo: mainsail-crew/mainsail
+Channel: stable
+Path: /home/dietpi/mainsail
+Local Version: v2.9.1
+Remote Version: v2.9.1
+Valid: True
+Fallback Client Detected: False
+Pre-release: False
+Download Url: https://github.com/mainsail-crew/mainsail/releases/download/v2.9.1/mainsail.zip
+Download Size: 2071443
+Content Type: application/zip
+Rollback Version: v2.9.0
+Rollback Repo: mainsail-crew/mainsail
+2024-01-21 15:32:24,095 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:24,111 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:25,088 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest pull --progress) successfully finished
+2024-01-21 15:32:25,143 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest status --porcelain -b) successfully finished
+2024-01-21 15:32:25,180 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest branch --list --no-color) successfully finished
+2024-01-21 15:32:25,223 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest remote get-url origin) successfully finished
+2024-01-21 15:32:25,253 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:25,266 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-parse HEAD) successfully finished
+2024-01-21 15:32:25,317 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:25,334 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-parse origin/master) successfully finished
+2024-01-21 15:32:25,388 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:25,416 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/crowsnest rev-list HEAD..c0c9c418c8e7d6158bfd7bb51a184ab20b77d075 --count) successfully finished
+2024-01-21 15:32:25,418 [git_deploy.py:log_repo_info()] - Git Repo crowsnest Detected:
+Owner: mainsail-crew
+Repository Name: crowsnest
+Path: /home/dietpi/crowsnest
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/crowsnest.git
+Recovery URL: https://github.com/mainsail-crew/crowsnest.git
+Current Commit SHA: c0c9c418c8e7d6158bfd7bb51a184ab20b77d075
+Upstream Commit SHA: c0c9c418c8e7d6158bfd7bb51a184ab20b77d075
+Current Version: v4.1.3-1-gc0c9c418
+Upstream Version: v4.1.3-1-gc0c9c418
+Rollback Commit: f7ac6aa298143f0019eae9b2b2be8039196ebeda
+Rollback Branch: master
+Rollback Version: v4.1.1-1-gf7ac6aa2
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:32:25,418 [base_deploy.py:log_info()] - Git Repo crowsnest: Channel: dev
+2024-01-21 15:32:25,418 [base_deploy.py:log_info()] - Git Repo crowsnest: Validity check for git repo passed
+2024-01-21 15:32:25,520 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:32:25,555 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.info, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:32:25,624 [common.py:build_error()] - JSON-RPC Request Error - Requested Method: printer.objects.query, Code: 503, Message: Klippy Host not connected
+2024-01-21 15:32:26,284 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:26,306 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:27,322 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper pull --progress) successfully finished
+2024-01-21 15:32:27,409 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper status --porcelain -b) successfully finished
+2024-01-21 15:32:27,443 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper branch --list --no-color) successfully finished
+2024-01-21 15:32:27,489 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper remote get-url origin) successfully finished
+2024-01-21 15:32:27,517 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:27,548 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-parse HEAD) successfully finished
+2024-01-21 15:32:27,719 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:32:27,739 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-parse origin/master) successfully finished
+2024-01-21 15:32:27,964 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:32:28,002 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/klipper rev-list HEAD..d785b396a72b57c073ce5bdf7a9d5e9fe39fc914 --count) successfully finished
+2024-01-21 15:32:28,003 [git_deploy.py:log_repo_info()] - Git Repo klipper Detected:
+Owner: Klipper3d
+Repository Name: klipper
+Path: /home/dietpi/klipper
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Klipper3d/klipper
+Recovery URL: https://github.com/Klipper3d/klipper
+Current Commit SHA: d785b396a72b57c073ce5bdf7a9d5e9fe39fc914
+Upstream Commit SHA: d785b396a72b57c073ce5bdf7a9d5e9fe39fc914
+Current Version: v0.12.0-85-gd785b396
+Upstream Version: v0.12.0-85-gd785b396
+Rollback Commit: b502558052f40339baa04fcfcbbeb65aa77dc1d8
+Rollback Branch: master
+Rollback Version: v0.12.0-55-gb5025580
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:32:28,004 [base_deploy.py:log_info()] - Git Repo klipper: Channel: dev
+2024-01-21 15:32:28,004 [base_deploy.py:log_info()] - Git Repo klipper: Validity check for git repo passed
+2024-01-21 15:32:43,413 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:32:43,910 [server.py:add_log_rollover_item()] - Klipper Version: v0.12.0-85-gd785b396
+2024-01-21 15:32:45,095 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker fetch origin --prune --progress) successfully finished
+2024-01-21 15:32:45,119 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:32:46,800 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker pull --progress) successfully finished
+2024-01-21 15:32:48,459 [shell_command.py:_check_proc_success()] - Command (/home/dietpi/moonraker-env/bin/python -m pip --version) successfully finished
+2024-01-21 15:32:48,468 [base_deploy.py:log_info()] - Git Repo moonraker: Dectected pip version: 23.3.1, Python 3.11
+2024-01-21 15:32:58,038 [shell_command.py:_check_proc_success()] - Command (/home/dietpi/moonraker-env/bin/python -m pip install pip==23.3.2) successfully finished
+2024-01-21 15:32:58,041 [base_deploy.py:log_info()] - Git Repo moonraker: Running Pip with environment variables: {'SKIP_CYTHON': 'Y'}
+2024-01-21 15:34:14,209 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 15:34:14,216 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 15:34:14,229 [klippy_connection.py:_check_ready()] - 
+mcu 'mcu': Unable to connect
+Once the underlying issue is corrected, use the
+"FIRMWARE_RESTART" command to reset the firmware, reload the
+config, and restart the host software.
+Error configuring printer
+
+2024-01-21 15:35:00,741 [shell_command.py:_check_proc_success()] - Command (/home/dietpi/moonraker-env/bin/python -m pip install -r /home/dietpi/moonraker/scripts/moonraker-requirements.txt) successfully finished
+2024-01-21 15:35:00,863 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker status --porcelain -b) successfully finished
+2024-01-21 15:35:00,919 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker branch --list --no-color) successfully finished
+2024-01-21 15:35:00,962 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker remote get-url origin) successfully finished
+2024-01-21 15:35:00,989 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker merge-base --is-ancestor HEAD origin/master) successfully finished
+2024-01-21 15:35:01,010 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-parse HEAD) successfully finished
+2024-01-21 15:35:01,057 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker describe --always --tags --long --dirty --abbrev=8) successfully finished
+2024-01-21 15:35:01,076 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-parse origin/master) successfully finished
+2024-01-21 15:35:01,129 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker describe origin/master --always --tags --long --abbrev=8) successfully finished
+2024-01-21 15:35:01,151 [shell_command.py:_check_proc_success()] - Command (git -C /home/dietpi/moonraker rev-list HEAD..d10ce8772dc5bdf3195f89783cf2f858b3c33b50 --count) successfully finished
+2024-01-21 15:35:01,153 [git_deploy.py:log_repo_info()] - Git Repo moonraker Detected:
+Owner: Arksine
+Repository Name: moonraker
+Path: /home/dietpi/moonraker
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Arksine/moonraker.git
+Recovery URL: https://github.com/Arksine/moonraker.git
+Current Commit SHA: d10ce8772dc5bdf3195f89783cf2f858b3c33b50
+Upstream Commit SHA: d10ce8772dc5bdf3195f89783cf2f858b3c33b50
+Current Version: v0.8.0-283-gd10ce877
+Upstream Version: v0.8.0-283-gd10ce877
+Rollback Commit: ca595163bb44ddd6bbaac3d698dc31f23ef58777
+Rollback Branch: master
+Rollback Version: v0.8.0-241-gca595163
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:35:01,154 [base_deploy.py:log_info()] - Git Repo moonraker: Channel: dev
+2024-01-21 15:35:01,154 [base_deploy.py:log_info()] - Git Repo moonraker: Validity check for git repo passed
+2024-01-21 15:35:01,304 [server.py:_handle_term_signal()] - Exiting with signal SIGTERM
+2024-01-21 15:35:01,417 [websockets.py:on_close()] - Websocket Closed: ID: 2821190480 Close Code: 1001, Close Reason: Server Shutdown, Pong Time Elapsed: 9.07
+2024-01-21 15:35:01,421 [websockets.py:on_close()] - Websocket Closed: ID: 2821192112 Close Code: 1000, Close Reason: None, Pong Time Elapsed: 7.45
+2024-01-21 15:35:01,730 [websockets.py:on_close()] - Websocket Closed: ID: 2821248720 Close Code: 1001, Close Reason: Server Shutdown, Pong Time Elapsed: 9.39
+2024-01-21 15:35:01,736 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:35:01,762 [database.py:close()] - Database statistics:
+
+announcements:
+psize: 4096
+depth: 0
+branch_pages: 0
+leaf_pages: 0
+overflow_pages: 0
+entries: 0
+authorized_users:
+psize: 4096
+depth: 1
+branch_pages: 0
+leaf_pages: 1
+overflow_pages: 0
+entries: 1
+gcode_metadata:
+psize: 4096
+depth: 2
+branch_pages: 1
+leaf_pages: 11
+overflow_pages: 0
+entries: 29
+history:
+psize: 4096
+depth: 2
+branch_pages: 1
+leaf_pages: 30
+overflow_pages: 0
+entries: 60
+mainsail:
+psize: 4096
+depth: 1
+branch_pages: 0
+leaf_pages: 1
+overflow_pages: 0
+entries: 10
+moonraker:
+psize: 4096
+depth: 1
+branch_pages: 0
+leaf_pages: 1
+overflow_pages: 0
+entries: 7
+obico:
+psize: 4096
+depth: 1
+branch_pages: 0
+leaf_pages: 1
+overflow_pages: 0
+entries: 1
+update_manager:
+psize: 4096
+depth: 2
+branch_pages: 1
+leaf_pages: 3
+overflow_pages: 0
+entries: 7
+webcams:
+psize: 4096
+depth: 1
+branch_pages: 0
+leaf_pages: 1
+overflow_pages: 0
+entries: 1
+2024-01-21 15:35:01,915 [server.py:main()] - Server Shutdown
+-------------------- Log Start | Sun Jan 21 14:35:02 2024 --------------------
+data_path: /home/dietpi/printer_data
+is_default_data_path: False
+config_file: /home/dietpi/printer_data/config/moonraker.conf
+startup_warnings: []
+verbose: False
+debug: False
+asyncio_debug: False
+is_backup_config: False
+is_python_package: False
+instance_uuid: b777dcf7ec8f45e0be825669e1e270a6
+unix_socket_path: /home/dietpi/printer_data/comms/moonraker.sock
+software_version: v0.8.0-283-gd10ce87
+git_branch: master
+git_remote: origin
+git_repo_url: https://github.com/Arksine/moonraker.git
+modified_files: []
+unofficial_components: []
+log_file: /home/dietpi/printer_data/logs/moonraker.log
+python_version: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+launch_args: /home/dietpi/moonraker-env/bin/python /home/dietpi/moonraker/moonraker/moonraker.py -d /home/dietpi/printer_data
+msgspec_enabled: False
+uvloop_enabled: False
+2024-01-21 15:35:02,957 [confighelper.py:read_file()] - Configuration File '/home/dietpi/printer_data/config/moonraker.conf' parsed, total size: 1744 B
+2024-01-21 15:35:02,957 [server.py:add_log_rollover_item()] - 
+#################### Moonraker Configuration ####################
+
+[server]
+host = 0.0.0.0
+port = 7125
+klippy_uds_address = /home/dietpi/printer_data/comms/klippy.sock
+
+[authorization]
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+cors_domains = 
+	*.lan
+	*.local
+	*://localhost
+	*://localhost:*
+	*://my.mainsail.xyz
+	*://app.fluidd.xyz
+
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+channel = dev
+refresh_interval = 168
+
+[update_manager mainsail-config]
+type = git_repo
+primary_branch = master
+path = ~/mainsail-config
+origin = https://github.com/mainsail-crew/mainsail-config.git
+managed_services = klipper
+
+[update_manager mainsail]
+type = web
+channel = stable
+repo = mainsail-crew/mainsail
+path = ~/mainsail
+
+[update_manager crowsnest]
+type = git_repo
+path = ~/crowsnest
+origin = https://github.com/mainsail-crew/crowsnest.git
+managed_services = crowsnest
+install_script = tools/pkglist.sh
+
+[power nous4]
+type = homeassistant
+address = 192.168.178.60
+port = 8123
+protocol = http
+device = switch.nous4_switch
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDRhNDc5ZDg4NDk0OGIwYjMzMzQ4YmUwN2RjNTY3ZiIsImlhdCI6MTY5NzQ2Mjc2NSwiZXhwIjoyMDEyODIyNzY1fQ.LXp-8zcFRI-cDFT5TIncg8M7f6o0iV-iMp04tnVa2N8
+domain = switch
+bound_services = klipper
+locked_while_printing = True
+on_when_job_queued = True
+restart_klipper_when_powered = True
+restart_delay = 2
+
+[update_manager moonraker-obico]
+type = git_repo
+path = /home/dietpi/moonraker-obico
+origin = https://github.com/TheSpaghettiDetective/moonraker-obico.git
+env = /home/dietpi/moonraker-obico/../moonraker-obico-env/bin/python
+requirements = requirements.txt
+install_script = install.sh
+managed_services = 
+	moonraker-obico
+
+#################################################################
+All Configuration Files:
+/home/dietpi/printer_data/config/moonraker.conf
+/home/dietpi/printer_data/config/moonraker-obico-update.cfg
+#################################################################
+2024-01-21 15:35:03,104 [server.py:load_component()] - Component (secrets) loaded
+2024-01-21 15:35:03,112 [server.py:load_component()] - Component (template) loaded
+2024-01-21 15:35:03,118 [server.py:load_component()] - Component (klippy_connection) loaded
+2024-01-21 15:35:03,656 [server.py:load_component()] - Component (application) loaded
+2024-01-21 15:35:03,690 [server.py:load_component()] - Component (websockets) loaded
+2024-01-21 15:35:03,735 [server.py:load_component()] - Component (dbus_manager) loaded
+2024-01-21 15:35:03,743 [server.py:add_log_rollover_item()] - 
+Database Versions: pylmdb = 1.4.1, lmdb = (0, 9, 29)
+Unsafe Shutdown Count: 4
+2024-01-21 15:35:03,751 [server.py:load_component()] - Component (database) loaded
+2024-01-21 15:35:03,845 [file_manager.py:__init__()] - Using File System Observer: inotify
+2024-01-21 15:35:03,863 [server.py:load_component()] - Component (file_manager) loaded
+2024-01-21 15:35:03,872 [server.py:load_component()] - Component (klippy_apis) loaded
+2024-01-21 15:35:03,955 [server.py:add_log_rollover_item()] - 
+System Info:
+
+***python***
+  version: (3, 11, 2, 'final', 0)
+  version_string: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+
+***cpu_info***
+  cpu_count: 8
+  bits: 32bit
+  processor: armv7l
+  cpu_desc: ARMv7 Processor rev 3 (v7l)
+  serial_number: 0
+  hardware_desc: Samsung Exynos (Flattened Device Tree)
+  model: 
+  total_memory: 2036572
+  memory_units: kB
+
+***sd_info***
+  manufacturer_id: 03
+  manufacturer: Sandisk
+  oem_id: 5344
+  product_name: SC32G
+  product_revision: 8.0
+  serial_number: 2c9e3bfd
+  manufacturer_date: 6/2018
+  capacity: 29.7 GiB
+  total_bytes: 31914983424
+
+***distribution***
+  name: Debian GNU/Linux 12 (bookworm)
+  id: debian
+  version: 12
+  version_parts: {'major': '12', 'minor': '', 'build_number': ''}
+  like: 
+  codename: bookworm
+  release_info: {}
+
+***virtualization***
+  virt_type: none
+  virt_identifier: none
+
+***network***
+
+***canbus***
+
+***Allowed Services***
+  klipper_mcu
+  webcamd
+  MoonCord
+  KlipperScreen
+  moonraker-telegram-bot
+  moonraker-obico
+  sonar
+  crowsnest
+  octoeverywhere
+  ratos-configurator
+2024-01-21 15:35:03,971 [server.py:load_component()] - Component (shell_command) loaded
+2024-01-21 15:35:03,971 [machine.py:__init__()] - Using System Provider: systemd_dbus
+2024-01-21 15:35:03,976 [server.py:load_component()] - Component (machine) loaded
+2024-01-21 15:35:03,986 [server.py:load_component()] - Component (data_store) loaded
+2024-01-21 15:35:04,002 [proc_stats.py:__init__()] - Unable to find 'vcgencmd', throttle checking disabled
+2024-01-21 15:35:04,003 [server.py:load_component()] - Component (proc_stats) loaded
+2024-01-21 15:35:04,004 [server.py:load_component()] - Component (job_state) loaded
+2024-01-21 15:35:04,008 [server.py:load_component()] - Component (job_queue) loaded
+2024-01-21 15:35:04,015 [server.py:load_component()] - Component (http_client) loaded
+2024-01-21 15:35:04,020 [server.py:load_component()] - Component (announcements) loaded
+2024-01-21 15:35:04,023 [server.py:load_component()] - Component (webcam) loaded
+2024-01-21 15:35:04,031 [server.py:load_component()] - Component (extensions) loaded
+2024-01-21 15:35:04,064 [authorization.py:__init__()] - Authorization Configuration Loaded
+Trusted Clients:
+10.0.0.0/8
+127.0.0.0/8
+169.254.0.0/16
+172.16.0.0/12
+192.168.0.0/16
+fe80::/10
+::1/128
+CORS Domains:
+.*\.lan
+.*\.local
+.*://localhost
+.*://localhost:.*
+.*://my\.mainsail\.xyz
+.*://app\.fluidd\.xyz
+2024-01-21 15:35:04,067 [server.py:load_component()] - Component (authorization) loaded
+2024-01-21 15:35:04,189 [base_deploy.py:log_info()] - Git Repo moonraker: Detected virtualenv: /home/dietpi/moonraker-env
+2024-01-21 15:35:04,192 [base_deploy.py:log_info()] - Git Repo klipper: Detected virtualenv: /home/dietpi/klippy-env
+2024-01-21 15:35:04,198 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Option 'env' is deprecated, use 'virtualenv' instead.
+2024-01-21 15:35:04,199 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Detected virtualenv: /home/dietpi/moonraker-obico-env
+2024-01-21 15:35:04,203 [server.py:load_component()] - Component (update_manager) loaded
+2024-01-21 15:35:04,249 [power.py:__init__()] - Power component loading devices: ['power nous4']
+2024-01-21 15:35:04,256 [server.py:load_component()] - Component (power) loaded
+2024-01-21 15:35:04,259 [server.py:load_component()] - Component (history) loaded
+2024-01-21 15:35:04,274 [server.py:load_component()] - Component (octoprint_compat) loaded
+2024-01-21 15:35:04,275 [server.py:_initialize_component()] - Performing Component Post Init: [dbus_manager]
+2024-01-21 15:35:04,315 [server.py:_initialize_component()] - Performing Component Post Init: [file_manager]
+2024-01-21 15:35:04,402 [server.py:_initialize_component()] - Performing Component Post Init: [machine]
+2024-01-21 15:35:04,402 [machine.py:validation_init()] - Installation version in database up to date
+2024-01-21 15:35:05,342 [machine.py:check_virt_status()] - No Virtualization Detected
+2024-01-21 15:35:05,365 [machine.py:_find_public_ip()] - Detected Local IP: 192.168.178.63
+2024-01-21 15:35:05,367 [webcam.py:_set_default_host_ip()] - Default public webcam address set: http://192.168.178.63
+2024-01-21 15:35:05,490 [server.py:add_log_rollover_item()] - 
+Systemd unit moonraker.service:
+unit_name: moonraker.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['network-online.target', '-.mount', 'sysinit.target', 'system.slice']
+**After=['sysinit.target', 'network-online.target', 'basic.target', 'system.slice', '-.mount', 'systemd-journald.socket']
+**SupplementaryGroups=['moonraker-admin']
+**EnvironmentFiles=/home/dietpi/printer_data/systemd/moonraker.env
+**ExecStart=/home/dietpi/moonraker-env/bin/python $MOONRAKER_ARGS
+**WorkingDirectory=/home/dietpi/moonraker
+**FragmentPath=/etc/systemd/system/moonraker.service
+**Description=API Server for Klipper SV1
+**User=dietpi
+2024-01-21 15:35:05,490 [server.py:_initialize_component()] - Performing Component Post Init: [proc_stats]
+2024-01-21 15:35:05,490 [server.py:_initialize_component()] - Performing Component Post Init: [announcements]
+2024-01-21 15:35:05,491 [server.py:_initialize_component()] - Performing Component Post Init: [webcam]
+2024-01-21 15:35:05,491 [webcam.py:_set_default_host_ip()] - Default public webcam address set: http://192.168.178.63
+2024-01-21 15:35:05,492 [server.py:_initialize_component()] - Performing Component Post Init: [klippy_connection]
+2024-01-21 15:35:05,493 [server.py:add_log_rollover_item()] - 
+Systemd unit klipper.service:
+unit_name: klipper.service
+is_default: True
+manager: systemd
+Properties:
+**Requires=['sysinit.target', '-.mount', 'system.slice']
+**After=['system.slice', 'systemd-journald.socket', 'basic.target', 'klipper-mcu.service', 'network-online.target', 'sysinit.target', '-.mount']
+**SupplementaryGroups=[]
+**EnvironmentFiles=/home/dietpi/printer_data/systemd/klipper.env
+**ExecStart=/home/dietpi/klippy-env/bin/python $KLIPPER_ARGS
+**WorkingDirectory=/home/dietpi/klipper
+**FragmentPath=/etc/systemd/system/klipper.service
+**Description=Klipper 3D Printer Firmware SV1
+**User=dietpi
+2024-01-21 15:35:05,493 [server.py:_initialize_component()] - Performing Component Post Init: [authorization]
+2024-01-21 15:35:05,493 [server.py:_initialize_component()] - Performing Component Post Init: [update_manager]
+2024-01-21 15:35:05,495 [server.py:_initialize_component()] - Performing Component Post Init: [power]
+2024-01-21 15:35:05,495 [power.py:_setup_bound_services()] - Power Device 'nous4' bound to services: klipper
+2024-01-21 15:35:05,495 [server.py:_initialize_component()] - Performing Component Post Init: [history]
+2024-01-21 15:35:05,610 [base_deploy.py:log_info()] - PackageDeploy: PackageKit Provider Configured
+2024-01-21 15:35:05,611 [base_deploy.py:log_info()] - Git Repo moonraker: Stored pip version: 23.3.1
+2024-01-21 15:35:06,171 [git_deploy.py:log_repo_info()] - Git Repo moonraker Detected:
+Owner: Arksine
+Repository Name: moonraker
+Path: /home/dietpi/moonraker
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Arksine/moonraker.git
+Recovery URL: https://github.com/Arksine/moonraker.git
+Current Commit SHA: d10ce8772dc5bdf3195f89783cf2f858b3c33b50
+Upstream Commit SHA: d10ce8772dc5bdf3195f89783cf2f858b3c33b50
+Current Version: v0.8.0-283-gd10ce877
+Upstream Version: v0.8.0-283-gd10ce877
+Rollback Commit: ca595163bb44ddd6bbaac3d698dc31f23ef58777
+Rollback Branch: master
+Rollback Version: v0.8.0-241-gca595163
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:35:06,766 [git_deploy.py:log_repo_info()] - Git Repo klipper Detected:
+Owner: Klipper3d
+Repository Name: klipper
+Path: /home/dietpi/klipper
+Remote: origin
+Branch: master
+Remote URL: https://github.com/Klipper3d/klipper
+Recovery URL: https://github.com/Klipper3d/klipper
+Current Commit SHA: d785b396a72b57c073ce5bdf7a9d5e9fe39fc914
+Upstream Commit SHA: d785b396a72b57c073ce5bdf7a9d5e9fe39fc914
+Current Version: v0.12.0-85-gd785b396
+Upstream Version: v0.12.0-85-gd785b396
+Rollback Commit: b502558052f40339baa04fcfcbbeb65aa77dc1d8
+Rollback Branch: master
+Rollback Version: v0.12.0-55-gb5025580
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:35:07,344 [git_deploy.py:log_repo_info()] - Git Repo mainsail-config Detected:
+Owner: mainsail-crew
+Repository Name: mainsail-config
+Path: /home/dietpi/mainsail-config
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/mainsail-config.git
+Recovery URL: https://github.com/mainsail-crew/mainsail-config.git
+Current Commit SHA: e57810d51b5c634aadaca4db923bfcba269ae4b3
+Upstream Commit SHA: e57810d51b5c634aadaca4db923bfcba269ae4b3
+Current Version: v1.2.1-0-ge57810d5
+Upstream Version: v1.2.1-0-ge57810d5
+Rollback Commit: 76a9999986b03abb3aed272dc0a818f13a18ea7e
+Rollback Branch: master
+Rollback Version: v1.1.0-1-g76a99999
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:35:07,352 [base_deploy.py:log_info()] - Web Client mainsail: Detected
+Repo: mainsail-crew/mainsail
+Channel: stable
+Path: /home/dietpi/mainsail
+Local Version: v2.9.1
+Remote Version: v2.9.1
+Valid: True
+Fallback Detected: False
+Pre-release: False
+Download Url: https://github.com/mainsail-crew/mainsail/releases/download/v2.9.1/mainsail.zip
+Download Size: 2071443
+Content Type: application/zip
+Rollback Version: v2.9.0
+Rollback Repo: mainsail-crew/mainsail
+2024-01-21 15:35:07,933 [git_deploy.py:log_repo_info()] - Git Repo crowsnest Detected:
+Owner: mainsail-crew
+Repository Name: crowsnest
+Path: /home/dietpi/crowsnest
+Remote: origin
+Branch: master
+Remote URL: https://github.com/mainsail-crew/crowsnest.git
+Recovery URL: https://github.com/mainsail-crew/crowsnest.git
+Current Commit SHA: c0c9c418c8e7d6158bfd7bb51a184ab20b77d075
+Upstream Commit SHA: c0c9c418c8e7d6158bfd7bb51a184ab20b77d075
+Current Version: v4.1.3-1-gc0c9c418
+Upstream Version: v4.1.3-1-gc0c9c418
+Rollback Commit: f7ac6aa298143f0019eae9b2b2be8039196ebeda
+Rollback Branch: master
+Rollback Version: v4.1.1-1-gf7ac6aa2
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:35:08,516 [git_deploy.py:log_repo_info()] - Git Repo moonraker-obico Detected:
+Owner: TheSpaghettiDetective
+Repository Name: moonraker-obico
+Path: /home/dietpi/moonraker-obico
+Remote: origin
+Branch: master
+Remote URL: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+Recovery URL: https://github.com/TheSpaghettiDetective/moonraker-obico.git
+Current Commit SHA: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Upstream Commit SHA: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Current Version: v1.5.4-0-g1dc1b19c
+Upstream Version: v1.5.4-0-g1dc1b19c
+Rollback Commit: 1dc1b19c7ab53e15d89c6edbdf34a635439aad0c
+Rollback Branch: master
+Rollback Version: v1.5.4-0-g1dc1b19c
+Is Dirty: False
+Is Detached: False
+Is Shallow: False
+Commits Behind Count: 0
+Diverged: False
+2024-01-21 15:35:08,518 [base_deploy.py:log_info()] - PackageKit: Next refresh in: 6 Days, 23 Hours, 57 Minutes, 6 Seconds
+2024-01-21 15:35:08,519 [base_deploy.py:log_info()] - Git Repo moonraker: Next refresh in: 6 Days, 23 Hours, 59 Minutes, 53 Seconds
+2024-01-21 15:35:08,520 [base_deploy.py:log_info()] - Git Repo klipper: Next refresh in: 6 Days, 23 Hours, 57 Minutes, 19 Seconds
+2024-01-21 15:35:08,521 [base_deploy.py:log_info()] - Git Repo mainsail-config: Next refresh in: 6 Days, 23 Hours, 57 Minutes, 11 Seconds
+2024-01-21 15:35:08,522 [base_deploy.py:log_info()] - Web Client mainsail: Next refresh in: 6 Days, 23 Hours, 57 Minutes, 15 Seconds
+2024-01-21 15:35:08,522 [base_deploy.py:log_info()] - Git Repo crowsnest: Next refresh in: 6 Days, 23 Hours, 57 Minutes, 17 Seconds
+2024-01-21 15:35:08,525 [base_deploy.py:log_info()] - Git Repo moonraker-obico: Next refresh in: 6 Days, 23 Hours, 57 Minutes, 13 Seconds
+2024-01-21 15:35:08,536 [extensions.py:start_unix_server()] - Creating Unix Domain Socket at '/home/dietpi/printer_data/comms/moonraker.sock'
+2024-01-21 15:35:08,547 [server.py:start_server()] - Starting Moonraker on (0.0.0.0, 7125), Hostname: xu4
+2024-01-21 15:35:08,556 [application.py:listen()] - SSL Certificate/Key not configured, aborting HTTPS Server startup
+2024-01-21 15:35:08,815 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:35:09,310 [server.py:add_log_rollover_item()] - Klipper Version: v0.12.0-85-gd785b396
+2024-01-21 15:35:09,361 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 15:35:09,366 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 15:35:09,373 [klippy_connection.py:_check_ready()] - 
+mcu 'mcu': Unable to connect
+Once the underlying issue is corrected, use the
+"FIRMWARE_RESTART" command to reset the firmware, reload the
+config, and restart the host software.
+Error configuring printer
+
+2024-01-21 15:35:25,533 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.60
+2024-01-21 15:35:25,539 [application.py:log_request()] - 101 GET /websocket (192.168.178.60) [_TRUSTED_USER_] 12.63ms
+2024-01-21 15:35:25,541 [websockets.py:open()] - Websocket Opened: ID: 2821259664, Proxied: False, User Agent: HomeAssistant/2024.1.5 aiohttp/3.9.1 Python/3.11, Host Name: 192.168.178.63
+2024-01-21 15:35:31,320 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.56
+2024-01-21 15:35:31,328 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 12.85ms
+2024-01-21 15:35:31,329 [websockets.py:open()] - Websocket Opened: ID: 2821261968, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:35:31,351 [websockets.py:_handle_identify()] - Websocket 2821261968 Client Identified - Name: mainsail, Version: 2.9.0, Type: web
+2024-01-21 15:35:38,568 [websockets.py:on_close()] - Websocket Closed: ID: 2821261968 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 7.25
+2024-01-21 15:35:39,095 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.41ms
+2024-01-21 15:35:39,097 [websockets.py:open()] - Websocket Opened: ID: 2823544048, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:35:39,131 [websockets.py:_handle_identify()] - Websocket 2823544048 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 15:35:43,146 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:35:44,420 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:35:52,190 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:35:53,464 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:35:57,956 [websockets.py:on_close()] - Websocket Closed: ID: 2823544048 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 8.73
+2024-01-21 15:35:58,305 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 9.59ms
+2024-01-21 15:35:58,307 [websockets.py:open()] - Websocket Opened: ID: 2823399568, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:35:58,341 [websockets.py:_handle_identify()] - Websocket 2823399568 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 15:36:03,955 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:36:04,965 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:36:09,974 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:36:11,246 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:36:18,796 [klippy_connection.py:close()] - Error closing Klippy Unix Socket
+Traceback (most recent call last):
+  File "/home/dietpi/moonraker/moonraker/components/klippy_connection.py", line 757, in close
+    await self.writer.wait_closed()
+  File "/usr/lib/python3.11/asyncio/streams.py", line 350, in wait_closed
+    await self._protocol._get_close_waiter(self)
+  File "/usr/lib/python3.11/asyncio/selector_events.py", line 995, in _read_ready__data_received
+    data = self._sock.recv(self.max_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+2024-01-21 15:36:18,797 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:36:20,076 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:36:28,104 [power.py:process_bound_services()] - Power Device nous4: Performing start action on bound service klipper
+2024-01-21 15:36:32,571 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 15:36:32,579 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 15:36:32,593 [power.py:_schedule_firmware_restart()] - Power Device nous4: Sending FIRMWARE_RESTART command to Klippy
+2024-01-21 15:36:32,597 [klippy_connection.py:_check_ready()] - 
+Can not update MCU 'pi' config as it is shutdown
+Once the underlying issue is corrected, use the
+"FIRMWARE_RESTART" command to reset the firmware, reload the
+config, and restart the host software.
+Error configuring printer
+
+2024-01-21 15:36:34,669 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:36:35,949 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:36:39,668 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 15:36:39,676 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 15:36:39,927 [job_state.py:_handle_started()] - Job state initialized: standby
+2024-01-21 15:36:40,237 [klippy_connection.py:_check_ready()] - Klippy ready
+2024-01-21 15:36:40,678 [data_store.py:_init_sensors()] - Configuring available sensors: ['temperature_sensor host', 'heater_bed', 'temperature_sensor mcu_temp', 'extruder']
+2024-01-21 15:36:48,746 [job_state.py:_status_update()] - Job Started: odroid_c4_case_remix_top-holes_3h10m_0.20mm_205C_PLA_ENDER3V2.gcode
+2024-01-21 15:38:44,320 [websockets.py:on_close()] - Websocket Closed: ID: 2823399568 Close Code: None, Close Reason: None, Pong Time Elapsed: 5.99
+2024-01-21 15:40:05,083 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.11ms
+2024-01-21 15:40:05,085 [websockets.py:open()] - Websocket Opened: ID: 2822060784, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:40:05,103 [websockets.py:_handle_identify()] - Websocket 2822060784 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 15:40:42,864 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.22
+2024-01-21 15:40:42,868 [application.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 8.20ms
+2024-01-21 15:40:42,869 [websockets.py:open()] - Websocket Opened: ID: 2821757488, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 15:40:42,882 [websockets.py:_handle_identify()] - Websocket 2821757488 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 15:42:29,477 [websockets.py:on_close()] - Websocket Closed: ID: 2822060784 Close Code: None, Close Reason: None, Pong Time Elapsed: 4.33
+2024-01-21 15:43:27,715 [klippy_connection.py:wait()] - Request 'gcode/script' pending: 60.00 seconds
+2024-01-21 15:44:27,718 [klippy_connection.py:wait()] - Request 'gcode/script' pending: 120.01 seconds
+2024-01-21 15:45:27,722 [klippy_connection.py:wait()] - Request 'gcode/script' pending: 180.01 seconds
+2024-01-21 15:46:27,727 [klippy_connection.py:wait()] - Request 'gcode/script' pending: 240.01 seconds
+2024-01-21 15:47:27,731 [klippy_connection.py:wait()] - Request 'gcode/script' pending: 300.02 seconds
+2024-01-21 15:48:23,507 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 15:48:24,781 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 15:48:28,353 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 15:48:28,360 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 15:48:28,605 [job_state.py:_handle_started()] - Job state initialized: standby
+2024-01-21 15:48:28,911 [klippy_connection.py:_check_ready()] - Klippy ready
+2024-01-21 15:48:29,393 [data_store.py:_init_sensors()] - Configuring available sensors: ['temperature_sensor host', 'heater_bed', 'temperature_sensor mcu_temp', 'extruder']
+2024-01-21 15:48:32,728 [job_state.py:_status_update()] - Job Started: odroid_c4_case_remix_top-holes_3h10m_0.20mm_205C_PLA_ENDER3V2.gcode
+2024-01-21 15:48:44,748 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.62ms
+2024-01-21 15:48:44,751 [websockets.py:open()] - Websocket Opened: ID: 2820954512, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:48:44,786 [websockets.py:_handle_identify()] - Websocket 2820954512 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 15:52:18,549 [websockets.py:on_close()] - Websocket Closed: ID: 2820954512 Close Code: None, Close Reason: None, Pong Time Elapsed: 3.78
+2024-01-21 15:54:13,039 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.22ms
+2024-01-21 15:54:13,041 [websockets.py:open()] - Websocket Opened: ID: 2820900720, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:54:13,067 [websockets.py:_handle_identify()] - Websocket 2820900720 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 15:55:42,842 [websockets.py:on_close()] - Websocket Closed: ID: 2820900720 Close Code: None, Close Reason: None, Pong Time Elapsed: 9.79
+2024-01-21 15:58:04,479 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.92ms
+2024-01-21 15:58:04,481 [websockets.py:open()] - Websocket Opened: ID: 2821408528, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 15:58:04,945 [websockets.py:_handle_identify()] - Websocket 2821408528 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 16:00:27,777 [websockets.py:on_close()] - Websocket Closed: ID: 2821408528 Close Code: None, Close Reason: None, Pong Time Elapsed: 3.29
+2024-01-21 16:06:32,170 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.18ms
+2024-01-21 16:06:32,173 [websockets.py:open()] - Websocket Opened: ID: 2821157456, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 16:06:32,226 [websockets.py:_handle_identify()] - Websocket 2821157456 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 16:06:34,384 [websockets.py:on_close()] - Websocket Closed: ID: 2821157456 Close Code: None, Close Reason: None, Pong Time Elapsed: 2.22
+2024-01-21 16:40:05,521 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.60
+2024-01-21 16:50:05,524 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.22
+2024-01-21 16:58:02,985 [websockets.py:write_to_socket()] - Websocket closed while writing: 2821757488
+2024-01-21 16:58:07,881 [websockets.py:on_close()] - Websocket Closed: ID: 2821757488 Close Code: None, Close Reason: None, Pong Time Elapsed: 45.01
+2024-01-21 17:10:05,531 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.56
+2024-01-21 17:46:57,891 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.56
+2024-01-21 17:46:57,898 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 13.50ms
+2024-01-21 17:46:57,901 [websockets.py:open()] - Websocket Opened: ID: 2821160784, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 17:46:57,997 [websockets.py:_handle_identify()] - Websocket 2821160784 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 17:47:02,929 [websockets.py:on_close()] - Websocket Closed: ID: 2821160784 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 5.04
+2024-01-21 17:47:03,301 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.50ms
+2024-01-21 17:47:03,302 [websockets.py:open()] - Websocket Opened: ID: 2821476944, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 17:47:03,334 [websockets.py:_handle_identify()] - Websocket 2821476944 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 17:49:09,384 [websockets.py:on_close()] - Websocket Closed: ID: 2821476944 Close Code: None, Close Reason: None, Pong Time Elapsed: 5.79
+2024-01-21 17:54:49,333 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 12.26ms
+2024-01-21 17:54:49,335 [websockets.py:open()] - Websocket Opened: ID: 2820900592, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 17:54:49,356 [websockets.py:_handle_identify()] - Websocket 2820900592 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 17:54:49,502 [websockets.py:on_close()] - Websocket Closed: ID: 2820900592 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 0.18
+2024-01-21 17:54:49,890 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.23ms
+2024-01-21 17:54:49,892 [websockets.py:open()] - Websocket Opened: ID: 2820900464, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 17:54:49,943 [websockets.py:_handle_identify()] - Websocket 2820900464 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 17:54:59,784 [websockets.py:on_close()] - Websocket Closed: ID: 2820900464 Close Code: None, Close Reason: None, Pong Time Elapsed: 9.90
+2024-01-21 17:58:43,232 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 3.18ms
+2024-01-21 17:58:43,233 [websockets.py:open()] - Websocket Opened: ID: 2821303536, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 17:58:43,392 [websockets.py:_handle_identify()] - Websocket 2821303536 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:01:46,084 [websockets.py:on_close()] - Websocket Closed: ID: 2821303536 Close Code: None, Close Reason: None, Pong Time Elapsed: 2.80
+2024-01-21 18:02:53,219 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.73ms
+2024-01-21 18:02:53,221 [websockets.py:open()] - Websocket Opened: ID: 2821303952, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:02:53,243 [websockets.py:_handle_identify()] - Websocket 2821303952 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:04:59,099 [websockets.py:on_close()] - Websocket Closed: ID: 2821303952 Close Code: None, Close Reason: None, Pong Time Elapsed: 5.87
+2024-01-21 18:09:00,905 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.57ms
+2024-01-21 18:09:00,907 [websockets.py:open()] - Websocket Opened: ID: 2820974224, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:09:00,990 [websockets.py:_handle_identify()] - Websocket 2820974224 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:09:13,606 [websockets.py:on_close()] - Websocket Closed: ID: 2820974224 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 2.63
+2024-01-21 18:09:13,987 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 12.52ms
+2024-01-21 18:09:13,990 [websockets.py:open()] - Websocket Opened: ID: 2820906160, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:09:14,012 [websockets.py:_handle_identify()] - Websocket 2820906160 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:09:41,301 [websockets.py:on_close()] - Websocket Closed: ID: 2820906160 Close Code: None, Close Reason: None, Pong Time Elapsed: 6.78
+2024-01-21 18:17:37,221 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 10.83ms
+2024-01-21 18:17:37,224 [websockets.py:open()] - Websocket Opened: ID: 2820955760, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:17:37,266 [websockets.py:_handle_identify()] - Websocket 2820955760 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:17:41,333 [websockets.py:on_close()] - Websocket Closed: ID: 2820955760 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 4.12
+2024-01-21 18:17:41,628 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.57ms
+2024-01-21 18:17:41,630 [websockets.py:open()] - Websocket Opened: ID: 2821261680, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:17:41,671 [websockets.py:_handle_identify()] - Websocket 2821261680 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:17:47,890 [websockets.py:on_close()] - Websocket Closed: ID: 2821261680 Close Code: None, Close Reason: None, Pong Time Elapsed: 6.27
+2024-01-21 18:28:11,775 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.56ms
+2024-01-21 18:28:11,777 [websockets.py:open()] - Websocket Opened: ID: 2802732176, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:28:11,856 [websockets.py:_handle_identify()] - Websocket 2802732176 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:28:23,027 [websockets.py:on_close()] - Websocket Closed: ID: 2802732176 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.17
+2024-01-21 18:28:23,416 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.05ms
+2024-01-21 18:28:23,418 [websockets.py:open()] - Websocket Opened: ID: 2820900496, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:28:23,433 [websockets.py:_handle_identify()] - Websocket 2820900496 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:28:36,189 [websockets.py:on_close()] - Websocket Closed: ID: 2820900496 Close Code: None, Close Reason: None, Pong Time Elapsed: 2.66
+2024-01-21 18:37:28,304 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.02ms
+2024-01-21 18:37:28,306 [websockets.py:open()] - Websocket Opened: ID: 2821273872, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:37:28,385 [websockets.py:_handle_identify()] - Websocket 2821273872 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:37:33,693 [websockets.py:on_close()] - Websocket Closed: ID: 2821273872 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 5.39
+2024-01-21 18:37:33,997 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.09ms
+2024-01-21 18:37:33,999 [websockets.py:open()] - Websocket Opened: ID: 2821275600, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:37:34,032 [websockets.py:_handle_identify()] - Websocket 2821275600 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:38:51,392 [websockets.py:on_close()] - Websocket Closed: ID: 2821275600 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 7.34
+2024-01-21 18:38:51,785 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 12.98ms
+2024-01-21 18:38:51,788 [websockets.py:open()] - Websocket Opened: ID: 2820899280, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:38:51,823 [websockets.py:_handle_identify()] - Websocket 2820899280 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:39:03,445 [websockets.py:on_close()] - Websocket Closed: ID: 2820899280 Close Code: None, Close Reason: None, Pong Time Elapsed: 1.62
+2024-01-21 18:47:22,409 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.73ms
+2024-01-21 18:47:22,411 [websockets.py:open()] - Websocket Opened: ID: 2820900880, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:47:22,488 [websockets.py:_handle_identify()] - Websocket 2820900880 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:47:30,464 [websockets.py:on_close()] - Websocket Closed: ID: 2820900880 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 8.06
+2024-01-21 18:47:30,832 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.52ms
+2024-01-21 18:47:30,834 [websockets.py:open()] - Websocket Opened: ID: 2821410768, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 18:47:30,859 [websockets.py:_handle_identify()] - Websocket 2821410768 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 18:47:36,397 [websockets.py:on_close()] - Websocket Closed: ID: 2821410768 Close Code: None, Close Reason: None, Pong Time Elapsed: 5.57
+2024-01-21 19:06:38,813 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.76ms
+2024-01-21 19:06:38,815 [websockets.py:open()] - Websocket Opened: ID: 2821407824, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:06:38,924 [websockets.py:_handle_identify()] - Websocket 2821407824 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:06:43,813 [websockets.py:on_close()] - Websocket Closed: ID: 2821407824 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 5.01
+2024-01-21 19:06:44,114 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.13ms
+2024-01-21 19:06:44,116 [websockets.py:open()] - Websocket Opened: ID: 2821479600, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:06:44,160 [websockets.py:_handle_identify()] - Websocket 2821479600 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:06:56,852 [websockets.py:on_close()] - Websocket Closed: ID: 2821479600 Close Code: None, Close Reason: None, Pong Time Elapsed: 2.58
+2024-01-21 19:07:58,189 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.58ms
+2024-01-21 19:07:58,191 [websockets.py:open()] - Websocket Opened: ID: 2821407376, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:07:58,276 [websockets.py:_handle_identify()] - Websocket 2821407376 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:08:03,048 [websockets.py:on_close()] - Websocket Closed: ID: 2821407376 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 4.86
+2024-01-21 19:08:03,437 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.43ms
+2024-01-21 19:08:03,439 [websockets.py:open()] - Websocket Opened: ID: 2821153136, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:08:03,466 [websockets.py:_handle_identify()] - Websocket 2821153136 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:09:38,982 [websockets.py:on_close()] - Websocket Closed: ID: 2821153136 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 5.54
+2024-01-21 19:09:39,366 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.55ms
+2024-01-21 19:09:39,368 [websockets.py:open()] - Websocket Opened: ID: 2821610672, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:09:39,413 [websockets.py:_handle_identify()] - Websocket 2821610672 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:11:07,730 [websockets.py:on_close()] - Websocket Closed: ID: 2821610672 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 8.11
+2024-01-21 19:11:08,175 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.80ms
+2024-01-21 19:11:08,177 [websockets.py:open()] - Websocket Opened: ID: 2821609072, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:11:08,220 [websockets.py:_handle_identify()] - Websocket 2821609072 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:12:20,167 [websockets.py:on_close()] - Websocket Closed: ID: 2821609072 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.98
+2024-01-21 19:12:20,579 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.70ms
+2024-01-21 19:12:20,581 [websockets.py:open()] - Websocket Opened: ID: 3038795632, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:12:20,594 [websockets.py:_handle_identify()] - Websocket 3038795632 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:13:25,931 [websockets.py:on_close()] - Websocket Closed: ID: 3038795632 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 5.31
+2024-01-21 19:13:26,299 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.26ms
+2024-01-21 19:13:26,302 [websockets.py:open()] - Websocket Opened: ID: 2821154192, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:13:26,352 [websockets.py:_handle_identify()] - Websocket 2821154192 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:13:42,496 [websockets.py:on_close()] - Websocket Closed: ID: 2821154192 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 6.19
+2024-01-21 19:13:42,787 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.73ms
+2024-01-21 19:13:42,788 [websockets.py:open()] - Websocket Opened: ID: 2821154192, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:13:42,816 [websockets.py:_handle_identify()] - Websocket 2821154192 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:13:58,190 [websockets.py:on_close()] - Websocket Closed: ID: 2821154192 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 5.39
+2024-01-21 19:13:58,480 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.32ms
+2024-01-21 19:13:58,482 [websockets.py:open()] - Websocket Opened: ID: 2820975216, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:13:58,507 [websockets.py:_handle_identify()] - Websocket 2820975216 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:16:01,467 [websockets.py:on_close()] - Websocket Closed: ID: 2820975216 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 2.94
+2024-01-21 19:16:01,833 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.49ms
+2024-01-21 19:16:01,836 [websockets.py:open()] - Websocket Opened: ID: 2821407376, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:16:01,898 [websockets.py:_handle_identify()] - Websocket 2821407376 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:16:26,731 [websockets.py:on_close()] - Websocket Closed: ID: 2821407376 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 4.75
+2024-01-21 19:16:27,007 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.26ms
+2024-01-21 19:16:27,009 [websockets.py:open()] - Websocket Opened: ID: 2821609360, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:16:27,058 [websockets.py:_handle_identify()] - Websocket 2821609360 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:16:38,413 [websockets.py:on_close()] - Websocket Closed: ID: 2821609360 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.18
+2024-01-21 19:16:38,694 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.11ms
+2024-01-21 19:16:38,696 [websockets.py:open()] - Websocket Opened: ID: 2821154800, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:16:38,735 [websockets.py:_handle_identify()] - Websocket 2821154800 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:16:50,076 [websockets.py:on_close()] - Websocket Closed: ID: 2821154800 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.37
+2024-01-21 19:16:50,382 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.41ms
+2024-01-21 19:16:50,384 [websockets.py:open()] - Websocket Opened: ID: 2821610800, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:16:50,408 [websockets.py:_handle_identify()] - Websocket 2821610800 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:17:01,257 [websockets.py:on_close()] - Websocket Closed: ID: 2821610800 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 0.87
+2024-01-21 19:17:01,544 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 9.70ms
+2024-01-21 19:17:01,546 [websockets.py:open()] - Websocket Opened: ID: 2820973872, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:17:01,578 [websockets.py:_handle_identify()] - Websocket 2820973872 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:17:27,753 [websockets.py:on_close()] - Websocket Closed: ID: 2820973872 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 6.18
+2024-01-21 19:17:28,150 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.25ms
+2024-01-21 19:17:28,152 [websockets.py:open()] - Websocket Opened: ID: 2822277200, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:17:28,191 [websockets.py:_handle_identify()] - Websocket 2822277200 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:18:40,722 [websockets.py:on_close()] - Websocket Closed: ID: 2822277200 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 2.35
+2024-01-21 19:18:41,101 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.58ms
+2024-01-21 19:18:41,103 [websockets.py:open()] - Websocket Opened: ID: 2821293680, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:18:41,147 [websockets.py:_handle_identify()] - Websocket 2821293680 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:18:52,262 [websockets.py:on_close()] - Websocket Closed: ID: 2821293680 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.15
+2024-01-21 19:18:52,560 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.13ms
+2024-01-21 19:18:52,562 [websockets.py:open()] - Websocket Opened: ID: 2821154896, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:18:52,595 [websockets.py:_handle_identify()] - Websocket 2821154896 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:19:15,460 [websockets.py:on_close()] - Websocket Closed: ID: 2821154896 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 2.89
+2024-01-21 19:19:15,769 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 11.69ms
+2024-01-21 19:19:15,771 [websockets.py:open()] - Websocket Opened: ID: 2823864816, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:19:15,797 [websockets.py:_handle_identify()] - Websocket 2823864816 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:19:25,915 [websockets.py:on_close()] - Websocket Closed: ID: 2823864816 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 0.08
+2024-01-21 19:19:26,206 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.87ms
+2024-01-21 19:19:26,208 [websockets.py:open()] - Websocket Opened: ID: 2823730384, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:19:26,235 [websockets.py:_handle_identify()] - Websocket 2823730384 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:19:32,846 [websockets.py:on_close()] - Websocket Closed: ID: 2823730384 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 6.65
+2024-01-21 19:19:33,136 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.41ms
+2024-01-21 19:19:33,137 [websockets.py:open()] - Websocket Opened: ID: 2821371600, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:19:33,167 [websockets.py:_handle_identify()] - Websocket 2821371600 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:19:44,207 [websockets.py:on_close()] - Websocket Closed: ID: 2821371600 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.02
+2024-01-21 19:19:44,493 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.60ms
+2024-01-21 19:19:44,495 [websockets.py:open()] - Websocket Opened: ID: 2821293264, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:19:44,524 [websockets.py:_handle_identify()] - Websocket 2821293264 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:19:51,944 [websockets.py:on_close()] - Websocket Closed: ID: 2821293264 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 7.46
+2024-01-21 19:19:52,228 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.45ms
+2024-01-21 19:19:52,230 [websockets.py:open()] - Websocket Opened: ID: 2821294352, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:19:52,262 [websockets.py:_handle_identify()] - Websocket 2821294352 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:20:02,340 [websockets.py:on_close()] - Websocket Closed: ID: 2821294352 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 0.04
+2024-01-21 19:20:02,632 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.00ms
+2024-01-21 19:20:02,634 [websockets.py:open()] - Websocket Opened: ID: 2820976432, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:20:02,664 [websockets.py:_handle_identify()] - Websocket 2820976432 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:20:12,946 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 19:20:14,253 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 19:20:17,824 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 19:20:17,831 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 19:20:18,077 [job_state.py:_handle_started()] - Job state initialized: standby
+2024-01-21 19:20:18,394 [klippy_connection.py:_check_ready()] - Klippy ready
+2024-01-21 19:20:18,838 [data_store.py:_init_sensors()] - Configuring available sensors: ['temperature_sensor host', 'heater_bed', 'temperature_sensor mcu_temp', 'extruder']
+2024-01-21 19:22:09,399 [websockets.py:on_close()] - Websocket Closed: ID: 2820976432 Close Code: None, Close Reason: None, Pong Time Elapsed: 6.52
+2024-01-21 19:22:11,836 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.74ms
+2024-01-21 19:22:11,838 [websockets.py:open()] - Websocket Opened: ID: 2823551056, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:22:12,024 [websockets.py:_handle_identify()] - Websocket 2823551056 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:22:16,335 [websockets.py:on_close()] - Websocket Closed: ID: 2823551056 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 4.51
+2024-01-21 19:22:16,676 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.66ms
+2024-01-21 19:22:16,677 [websockets.py:open()] - Websocket Opened: ID: 2823549680, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:22:16,735 [websockets.py:_handle_identify()] - Websocket 2823549680 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:22:26,421 [job_state.py:_status_update()] - Job Started: odroid_c4_case_remix_bottom_2h42m_0.20mm_205C_PLA_ENDER3V2.gcode
+2024-01-21 19:24:38,629 [websockets.py:on_close()] - Websocket Closed: ID: 2823549680 Close Code: None, Close Reason: None, Pong Time Elapsed: 1.85
+2024-01-21 19:25:13,075 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.00ms
+2024-01-21 19:25:13,077 [websockets.py:open()] - Websocket Opened: ID: 2821240464, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:25:13,113 [websockets.py:_handle_identify()] - Websocket 2821240464 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:27:02,424 [websockets.py:on_close()] - Websocket Closed: ID: 2821240464 Close Code: None, Close Reason: None, Pong Time Elapsed: 9.25
+2024-01-21 19:37:07,976 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.02ms
+2024-01-21 19:37:07,978 [websockets.py:open()] - Websocket Opened: ID: 2821758608, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:37:08,036 [websockets.py:_handle_identify()] - Websocket 2821758608 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:39:14,862 [websockets.py:on_close()] - Websocket Closed: ID: 2821758608 Close Code: None, Close Reason: None, Pong Time Elapsed: 6.86
+2024-01-21 19:51:34,141 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 8.46ms
+2024-01-21 19:51:34,143 [websockets.py:open()] - Websocket Opened: ID: 2823163760, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:51:34,178 [websockets.py:_handle_identify()] - Websocket 2823163760 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:51:37,135 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.22
+2024-01-21 19:51:37,140 [application.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 10.34ms
+2024-01-21 19:51:37,142 [websockets.py:open()] - Websocket Opened: ID: 2821277776, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 19:51:37,150 [websockets.py:_handle_identify()] - Websocket 2821277776 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:51:58,775 [websockets.py:on_close()] - Websocket Closed: ID: 2821277776 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 1.63
+2024-01-21 19:51:59,133 [application.py:log_request()] - 101 GET /websocket (192.168.178.22) [_TRUSTED_USER_] 7.40ms
+2024-01-21 19:51:59,134 [websockets.py:open()] - Websocket Opened: ID: 2823161648, Proxied: True, User Agent: Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0, Host Name: 192.168.178.63
+2024-01-21 19:51:59,148 [websockets.py:_handle_identify()] - Websocket 2823161648 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:53:26,908 [websockets.py:on_close()] - Websocket Closed: ID: 2823163760 Close Code: None, Close Reason: None, Pong Time Elapsed: 2.73
+2024-01-21 19:56:08,376 [application.py:log_request()] - 101 GET /websocket (192.168.178.56) [_TRUSTED_USER_] 7.63ms
+2024-01-21 19:56:08,378 [websockets.py:open()] - Websocket Opened: ID: 2823163760, Proxied: True, User Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36, Host Name: 192.168.178.63
+2024-01-21 19:56:08,569 [websockets.py:_handle_identify()] - Websocket 2823163760 Client Identified - Name: mainsail, Version: 2.9.1, Type: web
+2024-01-21 19:56:22,258 [websockets.py:write_to_socket()] - Websocket closed while writing: 2823163760
+2024-01-21 19:56:22,260 [websockets.py:on_close()] - Websocket Closed: ID: 2823163760 Close Code: None, Close Reason: None, Pong Time Elapsed: 3.80
+2024-01-21 20:55:05,616 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.22
+2024-01-21 20:57:13,516 [authorization.py:_check_trusted_connection()] - Trusted Connection Detected, IP: 192.168.178.60
+2024-01-21 21:00:05,618 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.56
+2024-01-21 22:00:05,638 [authorization.py:_prune_conn_handler()] - Trusted Connection Expired, IP: 192.168.178.60
+2024-01-21 22:23:18,180 [klippy_connection.py:_on_connection_closed()] - Klippy Connection Removed
+2024-01-21 22:23:19,488 [klippy_connection.py:_do_connect()] - Klippy Connection Established
+2024-01-21 22:23:22,853 [klippy_connection.py:_request_initial_subscriptions()] - Webhooks Subscribed
+2024-01-21 22:23:22,859 [klippy_connection.py:_request_initial_subscriptions()] - GCode Output Subscribed
+2024-01-21 22:23:23,106 [job_state.py:_handle_started()] - Job state initialized: standby
+2024-01-21 22:23:23,413 [klippy_connection.py:_check_ready()] - Klippy ready
+2024-01-21 22:23:24,202 [data_store.py:_init_sensors()] - Configuring available sensors: ['temperature_sensor host', 'heater_bed', 'temperature_sensor mcu_temp', 'extruder']
+2024-01-21 22:26:24,172 [klippy_connection.py:_process_status_update()] - Klippy has shutdown
+2024-01-21 22:26:24,187 [proc_stats.py:_handle_shutdown()] - 
+Moonraker System Usage Statistics:
+System Time: 1705872354.796700, Usage: 5.33%, Memory: 36080 kB
+System Time: 1705872355.793944, Usage: 6.47%, Memory: 36080 kB
+System Time: 1705872356.796244, Usage: 9.63%, Memory: 36080 kB
+System Time: 1705872357.797664, Usage: 5.32%, Memory: 36080 kB
+System Time: 1705872358.799213, Usage: 4.7%, Memory: 36080 kB
+System Time: 1705872359.802700, Usage: 5.76%, Memory: 36080 kB
+System Time: 1705872360.802123, Usage: 5.24%, Memory: 36080 kB
+System Time: 1705872361.807811, Usage: 6.71%, Memory: 36080 kB
+System Time: 1705872362.809332, Usage: 5.32%, Memory: 36080 kB
+System Time: 1705872363.811381, Usage: 5.24%, Memory: 36080 kB
+System Time: 1705872364.812838, Usage: 5.22%, Memory: 36080 kB
+System Time: 1705872365.814560, Usage: 5.92%, Memory: 36080 kB
+System Time: 1705872366.815448, Usage: 5.18%, Memory: 36080 kB
+System Time: 1705872367.815927, Usage: 5.25%, Memory: 36080 kB
+System Time: 1705872368.820013, Usage: 4.96%, Memory: 36080 kB
+System Time: 1705872369.819746, Usage: 5.84%, Memory: 36080 kB
+System Time: 1705872370.824673, Usage: 5.05%, Memory: 36080 kB
+System Time: 1705872371.828648, Usage: 5.88%, Memory: 36080 kB
+System Time: 1705872372.826206, Usage: 5.53%, Memory: 36080 kB
+System Time: 1705872373.828633, Usage: 5.15%, Memory: 36080 kB
+System Time: 1705872374.831334, Usage: 5.21%, Memory: 36080 kB
+System Time: 1705872375.831328, Usage: 5.93%, Memory: 36080 kB
+System Time: 1705872376.832582, Usage: 5.04%, Memory: 36080 kB
+System Time: 1705872377.835367, Usage: 5.1%, Memory: 36080 kB
+System Time: 1705872378.834040, Usage: 5.08%, Memory: 36080 kB
+System Time: 1705872379.842325, Usage: 5.24%, Memory: 36080 kB
+System Time: 1705872380.841338, Usage: 5.44%, Memory: 36080 kB
+System Time: 1705872381.842952, Usage: 7.05%, Memory: 36080 kB
+System Time: 1705872382.850187, Usage: 5.18%, Memory: 36080 kB
+System Time: 1705872383.852193, Usage: 5.67%, Memory: 36080 kB
+CPU Temperature: 40.0
+2024-01-21 22:50:19,735 [websockets.py:on_close()] - Websocket Closed: ID: 2823161648 Close Code: 1001, Close Reason: None, Pong Time Elapsed: 0.59

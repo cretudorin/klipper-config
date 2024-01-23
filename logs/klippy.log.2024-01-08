@@ -1,0 +1,731 @@
+===== Config file =====
+[pause_resume]
+
+[gcode_macro _OBICO_LAYER_CHANGE]
+description = Run a scan across the current print area
+variable_first_layer_scan_retract_length = 6
+variable_first_layer_scan_retract_speed = 15
+variable_first_layer_scan_unretract_length = 6.5
+variable_first_layer_scan_unretract_speed = 15
+variable_first_layer_scan_resume_speed = 50
+variable_first_layer_scan_enabled = True
+variable_first_layer_scan_stepover = 10
+variable_first_layer_scan_speed = 10
+variable_first_layer_scan_zhop = 4
+variable_first_layer_scan_zhop_speed = 15
+variable_verbose = False
+variable_current_layer = -1
+variable_first_layer_scanning = False
+variable_wait = {'resume': "RESUME", 'absolute_coordinates': True, 'absolute_extrude': True, 'e': 0.0}
+gcode = 
+	
+	{% set pause_macro  = "PAUSE"  if printer.configfile.settings['gcode_macro pause']  is not defined
+	else printer.configfile.settings['gcode_macro pause'].rename_existing %}
+	{% set resume_macro = "RESUME" if printer.configfile.settings['gcode_macro resume'] is not defined
+	else printer.configfile.settings['gcode_macro resume'].rename_existing %}
+	
+	{% set current_layer_default = printer.print_stats.info.current_layer if printer.print_stats.info.current_layer is not none else -1 %}
+	{% set current_layer = params.CURRENT_LAYER|default(current_layer_default)|int %}
+	
+	{% set polygon_points = printer.exclude_object.objects|map(attribute='polygon')|sum(start=[]) if printer.exclude_object is defined else [] %}
+	{% set min_x = params.MINX|default(polygon_points|map(attribute=0)|min|default(printer.toolhead.axis_minimum.x))|float %}
+	{% set min_y = params.MINY|default(polygon_points|map(attribute=1)|min|default(printer.toolhead.axis_minimum.y))|float %}
+	{% set max_x = params.MAXX|default(polygon_points|map(attribute=0)|max|default(printer.toolhead.axis_maximum.x))|float %}
+	{% set max_y = params.MAXY|default(polygon_points|map(attribute=1)|max|default(printer.toolhead.axis_maximum.y))|float %}
+	
+	{% set stepoverCount = ((max_y - min_y) / first_layer_scan_stepover|float)|round(method='ceil')|int %}
+	
+	
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG='{"Layer %d" % (current_layer)}' {% endif %}
+	SET_GCODE_VARIABLE MACRO=_OBICO_LAYER_CHANGE VARIABLE=current_layer VALUE={current_layer}
+	
+	{% if first_layer_scan_enabled and current_layer == 2 %}
+	
+	{% set wait_dic = {'resume'              : resume_macro,
+	'absolute_coordinates': printer.gcode_move.absolute_coordinates,
+	'absolute_extrude'    : printer.gcode_move.absolute_extrude,
+	'e'                   : printer.gcode_move.gcode_position.e} %}
+	SET_GCODE_VARIABLE MACRO=_OBICO_LAYER_CHANGE VARIABLE=wait VALUE="{wait_dic}"
+	
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG="Prepair scanning" {% endif %}
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG='{"Scan Coordinates: Min:[%.3f:%.3f] Max:[%.3f:%.3f]" % (min_x,min_y,max_x,max_y)}' {% endif %}
+	{% if printer[printer.toolhead.extruder].can_extrude %}
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG='{"Retract %.1fmm filament" % first_layer_scan_retract_length|abs}' {% endif %}
+	M83
+	G0 E-{first_layer_scan_retract_length|abs} F{first_layer_scan_retract_speed|float * 60}
+	{% endif %}
+	G91
+	G0 Z{first_layer_scan_zhop|abs} F{first_layer_scan_zhop_speed|float * 60}
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG='{"Call %s" % pause_macro}' {% endif %}
+	{pause_macro}
+	
+	
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG="Start scanning" {% endif %}
+	
+	UPDATE_DELAYED_GCODE ID=_WAIT_OBICO_LAYER_CHANGE DURATION=1.0
+	SET_GCODE_VARIABLE MACRO=_OBICO_LAYER_CHANGE VARIABLE=first_layer_scanning VALUE=True
+	G90
+	G0 X{min_x} Y{min_y} F{first_layer_scan_resume_speed|float * 60}
+	{% for ystep in range(stepoverCount) %}
+	G0 Y{min_y + first_layer_scan_stepover|float * ystep} F{first_layer_scan_speed|float * 60}
+	G0 X{max_x if ystep % 2 == 0 else min_x}              F{first_layer_scan_speed|float * 60}
+	{% endfor %}
+	SET_GCODE_VARIABLE MACRO=_OBICO_LAYER_CHANGE VARIABLE=first_layer_scanning VALUE=False
+	{% if verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG="Finish scanning" {% endif %}
+	{% endif %}
+
+[delayed_gcode _WAIT_OBICO_LAYER_CHANGE]
+gcode = 
+	{% set lc_macro = printer['gcode_macro _OBICO_LAYER_CHANGE'] %}
+	{% if lc_macro.first_layer_scanning %}
+	
+	{% if lc_macro.verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG="Waiting for first layer scan..." {% endif %}
+	UPDATE_DELAYED_GCODE ID=_WAIT_OBICO_LAYER_CHANGE DURATION=1.0
+	{% else %}
+	
+	{% if lc_macro.verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG="Resume print" {% endif %}
+	{% if lc_macro.verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG='{"Call %s VELOCITY=%.1f" % (lc_macro.wait.resume, lc_macro.first_layer_scan_resume_speed)}' {% endif %}
+	{lc_macro.wait.resume} VELOCITY={lc_macro.first_layer_scan_resume_speed}
+	G91
+	G0 Z-{lc_macro.first_layer_scan_zhop|abs} F{lc_macro.first_layer_scan_zhop_speed|float * 60}
+	{% if printer[printer.toolhead.extruder].can_extrude %}
+	{% if lc_macro.verbose %} RESPOND PREFIX='OBICO DEBUG:' MSG='{"Extrude %.1fmm filament" % lc_macro.first_layer_scan_unretract_length|abs}' {% endif %}
+	M83
+	G0 E{lc_macro.first_layer_scan_unretract_length|abs} F{lc_macro.first_layer_scan_unretract_speed|float * 60}
+	{% endif %}
+	
+	
+	{% if lc_macro.wait.absolute_coordinates %} G90 {% endif %}
+	{% if lc_macro.wait.absolute_extrude %}
+	M82
+	G92 E{lc_macro.wait.e}
+	{% endif %}
+	{% endif %}
+
+[virtual_sdcard]
+path = ~/printer_data/gcodes
+on_error_gcode = CANCEL_PRINT
+
+[display_status]
+
+[respond]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	
+	{% set client = printer['gcode_macro _CLIENT_VARIABLE']|default({}) %}
+	{% set allow_park = client.park_at_cancel|default(false)|lower == 'true' %}
+	{% set retract = client.cancel_retract|default(5.0)|abs %}
+	
+	{% set park_x = "" if (client.park_at_cancel_x|default(none) is none)
+	else "X=" ~ client.park_at_cancel_x %}
+	{% set park_y = "" if (client.park_at_cancel_y|default(none) is none)
+	else "Y=" ~ client.park_at_cancel_y %}
+	{% set custom_park = park_x|length > 0 or park_y|length > 0 %}
+	
+	
+	{% if printer['gcode_macro RESUME'].restore_idle_timeout > 0 %}
+	SET_IDLE_TIMEOUT TIMEOUT={printer['gcode_macro RESUME'].restore_idle_timeout}
+	{% endif %}
+	{% if (custom_park or not printer.pause_resume.is_paused) and allow_park %} _TOOLHEAD_PARK_PAUSE_CANCEL {park_x} {park_y} {% endif %}
+	_CLIENT_RETRACT LENGTH={retract}
+	TURN_OFF_HEATERS
+	M106 S0
+	{client.user_cancel_macro|default("")}
+	SET_GCODE_VARIABLE MACRO=RESUME VARIABLE=idle_state VALUE=False
+	
+	SET_PAUSE_NEXT_LAYER ENABLE=0
+	SET_PAUSE_AT_LAYER ENABLE=0 LAYER=0
+	CANCEL_PRINT_BASE
+
+[gcode_macro PAUSE]
+description = Pause the actual running print
+rename_existing = PAUSE_BASE
+gcode = 
+	
+	{% set client = printer['gcode_macro _CLIENT_VARIABLE']|default({}) %}
+	{% set idle_timeout = client.idle_timeout|default(0) %}
+	{% set temp = printer[printer.toolhead.extruder].target if printer.toolhead.extruder != '' else 0 %}
+	{% set restore = False if printer.toolhead.extruder == ''
+	else True  if params.RESTORE|default(1)|int == 1 else False %}
+	
+	SET_GCODE_VARIABLE MACRO=RESUME VARIABLE=last_extruder_temp VALUE="{{'restore': restore, 'temp': temp}}"
+	
+	{% if idle_timeout > 0 %}
+	SET_GCODE_VARIABLE MACRO=RESUME VARIABLE=restore_idle_timeout VALUE={printer.configfile.settings.idle_timeout.timeout}
+	SET_IDLE_TIMEOUT TIMEOUT={idle_timeout}
+	{% endif %}
+	PAUSE_BASE
+	{client.user_pause_macro|default("")}
+	_TOOLHEAD_PARK_PAUSE_CANCEL {rawparams}
+
+[gcode_macro RESUME]
+description = Resume the actual running print
+rename_existing = RESUME_BASE
+variable_last_extruder_temp = {'restore': False, 'temp': 0}
+variable_restore_idle_timeout = 0
+variable_idle_state = False
+gcode = 
+	
+	{% set client = printer['gcode_macro _CLIENT_VARIABLE']|default({}) %}
+	{% set velocity = printer.configfile.settings.pause_resume.recover_velocity %}
+	{% set sp_move = client.speed_move|default(velocity) %}
+	{% set runout_resume = True if client.runout_sensor|default("") == ""
+	else True if not printer[client.runout_sensor].enabled
+	else printer[client.runout_sensor].filament_detected %}
+	{% set can_extrude = True if printer.toolhead.extruder == ''
+	else printer[printer.toolhead.extruder].can_extrude %}
+	{% set do_resume = False %}
+	{% set prompt_txt = [] %}
+	
+	
+	{% if printer.idle_timeout.state|upper == "IDLE" or idle_state %}
+	SET_GCODE_VARIABLE MACRO=RESUME VARIABLE=idle_state VALUE=False
+	{% if last_extruder_temp.restore %}
+	
+	RESPOND TYPE=echo MSG='{"Restoring \"%s\" temperature to %3.1f\u00B0C, this may take some time" % (printer.toolhead.extruder, last_extruder_temp.temp) }'
+	M109 S{last_extruder_temp.temp}
+	{% set do_resume = True %}
+	{% elif can_extrude %}
+	{% set do_resume = True %}
+	{% else %}
+	RESPOND TYPE=error MSG='{"Resume aborted !!! \"%s\" not hot enough, please heat up again and press RESUME" % printer.toolhead.extruder}'
+	{% set _d = prompt_txt.append("\"%s\" not hot enough, please heat up again and press RESUME" % printer.toolhead.extruder) %}
+	{% endif %}
+	
+	{% elif can_extrude %}
+	{% set do_resume = True %}
+	{% else %}
+	RESPOND TYPE=error MSG='{"Resume aborted !!! \"%s\" not hot enough, please heat up again and press RESUME" % printer.toolhead.extruder}'
+	{% set _d = prompt_txt.append("\"%s\" not hot enough, please heat up again and press RESUME" % printer.toolhead.extruder) %}
+	{% endif %}
+	{% if runout_resume %}
+	{% if do_resume %}
+	{% if restore_idle_timeout > 0 %} SET_IDLE_TIMEOUT TIMEOUT={restore_idle_timeout} {% endif %}
+	{client.user_resume_macro|default("")}
+	_CLIENT_EXTRUDE
+	RESUME_BASE VELOCITY={params.VELOCITY|default(sp_move)}
+	{% endif %}
+	{% else %}
+	RESPOND TYPE=error MSG='{"Resume aborted !!! \"%s\" detects no filament, please load filament and press RESUME" % (client.runout_sensor.split(" "))[1]}'
+	{% set _d = prompt_txt.append("\"%s\" detects no filament, please load filament and press RESUME" % (client.runout_sensor.split(" "))[1]) %}
+	{% endif %}
+	
+	{% if not (runout_resume and do_resume) %}
+	RESPOND TYPE=command MSG="action:prompt_begin RESUME aborted !!!"
+	{% for element in prompt_txt %}
+	RESPOND TYPE=command MSG='{"action:prompt_text %s" % element}'
+	{% endfor %}
+	RESPOND TYPE=command MSG="action:prompt_footer_button Ok|RESPOND TYPE=command MSG=action:prompt_end|info"
+	RESPOND TYPE=command MSG="action:prompt_show"
+	{% endif %}
+
+[gcode_macro SET_PAUSE_NEXT_LAYER]
+description = Enable a pause if the next layer is reached
+gcode = 
+	{% set pause_next_layer = printer['gcode_macro SET_PRINT_STATS_INFO'].pause_next_layer %}
+	{% set ENABLE = params.ENABLE|default(1)|int != 0 %}
+	{% set MACRO = params.MACRO|default(pause_next_layer.call, True) %}
+	SET_GCODE_VARIABLE MACRO=SET_PRINT_STATS_INFO VARIABLE=pause_next_layer VALUE="{{ 'enable': ENABLE, 'call': MACRO }}"
+
+[gcode_macro SET_PAUSE_AT_LAYER]
+description = Enable/disable a pause if a given layer number is reached
+gcode = 
+	{% set pause_at_layer = printer['gcode_macro SET_PRINT_STATS_INFO'].pause_at_layer %}
+	{% set ENABLE = params.ENABLE|int != 0 if params.ENABLE is defined
+	else params.LAYER is defined %}
+	{% set LAYER = params.LAYER|default(pause_at_layer.layer)|int %}
+	{% set MACRO = params.MACRO|default(pause_at_layer.call, True) %}
+	SET_GCODE_VARIABLE MACRO=SET_PRINT_STATS_INFO VARIABLE=pause_at_layer VALUE="{{ 'enable': ENABLE, 'layer': LAYER, 'call': MACRO }}"
+
+[gcode_macro SET_PRINT_STATS_INFO]
+rename_existing = SET_PRINT_STATS_INFO_BASE
+description = Overwrite, to get pause_next_layer and pause_at_layer feature
+variable_pause_next_layer = { 'enable': False, 'call': "PAUSE" }
+variable_pause_at_layer = { 'enable': False, 'layer': 0, 'call': "PAUSE" }
+gcode = 
+	{% if pause_next_layer.enable %}
+	RESPOND TYPE=echo MSG='{"%s, forced by pause_next_layer" % pause_next_layer.call}'
+	{pause_next_layer.call}
+	SET_PAUSE_NEXT_LAYER ENABLE=0
+	{% elif pause_at_layer.enable and params.CURRENT_LAYER is defined and params.CURRENT_LAYER|int == pause_at_layer.layer %}
+	RESPOND TYPE=echo MSG='{"%s, forced by pause_at_layer [%d]" % (pause_at_layer.call, pause_at_layer.layer)}'
+	{pause_at_layer.call}
+	SET_PAUSE_AT_LAYER ENABLE=0
+	{% endif %}
+	SET_PRINT_STATS_INFO_BASE {rawparams}
+
+[gcode_macro _TOOLHEAD_PARK_PAUSE_CANCEL]
+description = Helper: park toolhead used in PAUSE and CANCEL_PRINT
+gcode = 
+	
+	{% set client = printer['gcode_macro _CLIENT_VARIABLE']|default({}) %}
+	{% set velocity = printer.configfile.settings.pause_resume.recover_velocity %}
+	{% set use_custom     = client.use_custom_pos|default(false)|lower == 'true' %}
+	{% set custom_park_x  = client.custom_park_x|default(0.0) %}
+	{% set custom_park_y  = client.custom_park_y|default(0.0) %}
+	{% set park_dz        = client.custom_park_dz|default(2.0)|abs %}
+	{% set sp_hop         = client.speed_hop|default(15) * 60 %}
+	{% set sp_move        = client.speed_move|default(velocity) * 60 %}
+	
+	{% set origin    = printer.gcode_move.homing_origin %}
+	{% set act       = printer.gcode_move.gcode_position %}
+	{% set max       = printer.toolhead.axis_maximum %}
+	{% set cone      = printer.toolhead.cone_start_z|default(max.z) %}
+	{% set round_bed = True if printer.configfile.settings.printer.kinematics is in ['delta','polar','rotary_delta','winch']
+	else False %}
+	
+	{% set z_min = params.Z_MIN|default(0)|float %}
+	{% set z_park = [[(act.z + park_dz), z_min]|max, (max.z - origin.z)]|min %}
+	{% set x_park = params.X       if params.X is defined
+	else custom_park_x  if use_custom
+	else 0.0            if round_bed
+	else (max.x - 5.0) %}
+	{% set y_park = params.Y       if params.Y is defined
+	else custom_park_y  if use_custom
+	else (max.y - 5.0)  if round_bed and z_park < cone
+	else 0.0            if round_bed
+	else (max.y - 5.0) %}
+	
+	_CLIENT_RETRACT
+	{% if "xyz" in printer.toolhead.homed_axes %}
+	G90
+	G1 Z{z_park} F{sp_hop}
+	G1 X{x_park} Y{y_park} F{sp_move}
+	{% if not printer.gcode_move.absolute_coordinates %} G91 {% endif %}
+	{% else %}
+	RESPOND TYPE=echo MSG='Printer not homed'
+	{% endif %}
+
+[gcode_macro _CLIENT_EXTRUDE]
+description = Extrudes, if the extruder is hot enough
+gcode = 
+	
+	{% set client = printer['gcode_macro _CLIENT_VARIABLE']|default({}) %}
+	{% set use_fw_retract = (client.use_fw_retract|default(false)|lower == 'true') and (printer.firmware_retraction is defined) %}
+	{% set length = params.LENGTH|default(client.unretract)|default(1.0)|float %}
+	{% set speed = params.SPEED|default(client.speed_unretract)|default(35) %}
+	{% set absolute_extrude = printer.gcode_move.absolute_extrude %}
+	
+	{% if printer.toolhead.extruder != '' %}
+	{% if printer[printer.toolhead.extruder].can_extrude %}
+	{% if use_fw_retract %}
+	{% if length < 0 %}
+	G10
+	{% else %}
+	G11
+	{% endif %}
+	{% else %}
+	M83
+	G1 E{length} F{(speed|float|abs) * 60}
+	{% if absolute_extrude %}
+	M82
+	{% endif %}
+	{% endif %}
+	{% else %}
+	RESPOND TYPE=echo MSG='{"\"%s\" not hot enough" % printer.toolhead.extruder}'
+	{% endif %}
+	{% endif %}
+
+[gcode_macro _CLIENT_RETRACT]
+description = Retracts, if the extruder is hot enough
+gcode = 
+	{% set client = printer['gcode_macro _CLIENT_VARIABLE']|default({}) %}
+	{% set length = params.LENGTH|default(client.retract)|default(1.0)|float %}
+	{% set speed = params.SPEED|default(client.speed_retract)|default(35) %}
+	
+	_CLIENT_EXTRUDE LENGTH=-{length|float|abs} SPEED={speed|float|abs}
+
+[mcu pi]
+serial = /tmp/klipper_host_mcu
+
+[temperature_sensor host]
+sensor_type = temperature_host
+min_temp = 10
+max_temp = 100
+
+[gcode_macro G29]
+gcode = 
+	G28
+	BED_MESH_CALIBRATE
+
+[gcode_macro m201]
+gcode = 
+	G4
+
+[gcode_macro m203]
+gcode = 
+	G4
+
+[gcode_macro m205]
+gcode = 
+	G4
+
+[gcode_macro M600]
+gcode = 
+	{% set X = params.X|default(50)|float %}
+	{% set Y = params.Y|default(0)|float %}
+	{% set Z = params.Z|default(10)|float %}
+	SAVE_GCODE_STATE NAME=M600_state
+	PAUSE
+	G91
+	G1 E-.8 F2700
+	G1 Z{Z}
+	G90
+	G1 X{X} Y{Y} F3000
+	G91
+	G1 E-50 F1000
+	RESTORE_GCODE_STATE NAME=M600_state
+
+[gcode_macro FILAMENT_CHANGE]
+gcode = 
+	M600
+
+[exclude_object]
+
+[gcode_macro M486]
+gcode = 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	{% if 'exclude_object' not in printer %}
+	{action_raise_error("[exclude_object] is not enabled")}
+	{% endif %}
+	
+	{% if 'T' in params %}
+	EXCLUDE_OBJECT RESET=1
+	
+	{% for i in range(params.T | int) %}
+	EXCLUDE_OBJECT_DEFINE NAME={i}
+	{% endfor %}
+	{% endif %}
+	
+	{% if 'C' in params %}
+	EXCLUDE_OBJECT CURRENT=1
+	{% endif %}
+	
+	{% if 'P' in params %}
+	EXCLUDE_OBJECT NAME={params.P}
+	{% endif %}
+	
+	{% if 'S' in params %}
+	{% if params.S == '-1' %}
+	{% if printer.exclude_object.current_object %}
+	EXCLUDE_OBJECT_END NAME={printer.exclude_object.current_object}
+	{% endif %}
+	{% else %}
+	EXCLUDE_OBJECT_START NAME={params.S}
+	{% endif %}
+	{% endif %}
+	
+	{% if 'U' in params %}
+	EXCLUDE_OBJECT RESET=1 NAME={params.U}
+	{% endif %}
+
+[gcode_macro START_PRINT]
+gcode = 
+	BED_MESH_PROFILE LOAD=default
+	{% set BED_TEMP = params.BED_TEMP|default(60)|float %}
+	{% set EXTRUDER_TEMP = params.EXTRUDER_TEMP|default(190)|float %}
+	
+	M140 S{BED_TEMP}
+	
+	G90
+	
+	SET_GCODE_OFFSET Z=0.0
+	
+	G28
+	
+	G1 Z5 F3000
+	
+	G1 Z0.15 F300
+	
+	M190 S{BED_TEMP}
+	
+	M109 S{EXTRUDER_TEMP}
+
+[gcode_macro END_PRINT]
+gcode = 
+	
+	M140 S0
+	M104 S0
+	M106 S0
+	
+	G91
+	G1 X-2 Y-2 E-3 F300
+	
+	G1 Z10 F3000
+	G90
+	
+	M84
+	Z_OFFSET_APPLY_PROBE
+	SAVE_CONFIG
+
+[gcode_macro POWER_OFF_PRINTER]
+gcode = { action_call_remote_method("set_device_power", device="nous4", state="off") }
+
+[delayed_gcode delayed_printer_off]
+initial_duration = 0.
+gcode = 
+	{% if printer.idle_timeout.state == "Idle" %}
+	POWER_OFF_PRINTER
+	{% endif %}
+
+[idle_timeout]
+gcode = 
+	M84
+	TURN_OFF_HEATERS
+	UPDATE_DELAYED_GCODE ID=delayed_printer_off DURATION=60
+
+[stepper_x]
+step_pin = PC2
+dir_pin = PB9
+enable_pin = !PC3
+microsteps = 16
+rotation_distance = 40
+endstop_pin = ^PA5
+position_endstop = 0
+position_max = 245
+homing_speed = 50
+
+[stepper_y]
+step_pin = PB8
+dir_pin = PB7
+enable_pin = !PC3
+microsteps = 16
+rotation_distance = 40
+endstop_pin = ^PA6
+position_endstop = 0
+position_max = 235
+homing_speed = 50
+
+[stepper_z]
+step_pin = PB6
+dir_pin = !PB5
+enable_pin = !PC3
+microsteps = 16
+rotation_distance = 8
+endstop_pin = probe: z_virtual_endstop
+position_max = 250
+position_min = -2.5
+
+[extruder]
+max_extrude_only_distance = 1000.0
+max_extrude_cross_section = 50
+step_pin = PB4
+dir_pin = PB3
+enable_pin = !PC3
+microsteps = 16
+rotation_distance = 34.406
+nozzle_diameter = 0.400
+filament_diameter = 1.750
+heater_pin = PA1
+sensor_type = EPCOS 100K B57560G104F
+sensor_pin = PC5
+control = pid
+pid_kp = 23.960
+pid_ki = 1.192
+pid_kd = 120.397
+min_temp = 0
+max_temp = 260
+pressure_advance = 0.28
+
+[heater_bed]
+heater_pin = PA2
+sensor_type = EPCOS 100K B57560G104F
+sensor_pin = PC4
+control = pid
+pid_kp = 72.159
+pid_ki = 1.111
+pid_kd = 1171.674
+min_temp = 0
+max_temp = 130
+
+[fan]
+pin = PA0
+
+[mcu]
+serial = /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+restart_method = command
+
+[printer]
+kinematics = cartesian
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 5
+max_z_accel = 100
+
+[temperature_sensor mcu_temp]
+sensor_type = temperature_mcu
+min_temp = 0
+max_temp = 100
+
+[filament_switch_sensor runout_sensor]
+pause_on_runout = True
+runout_gcode = 
+	G91
+	G1 Z20 F900
+	G90
+	G1 X10 Y10 F5000
+	G91
+	G1 E10 F300
+	G1 E20 F150
+	G1 E-20 F2400
+	G1 E-600 F1600
+	G90
+switch_pin = !PA4
+
+[bltouch]
+sensor_pin = ^PB1
+control_pin = PB0
+pin_up_touch_mode_reports_triggered = False
+probe_with_touch_mode = True
+x_offset = -44.0
+y_offset = -7.5
+z_offset = 2.850
+
+[safe_z_home]
+home_xy_position = 160.3, 125
+z_hop = 10
+z_hop_speed = 5
+
+[bed_mesh]
+speed = 120
+horizontal_move_z = 5
+mesh_min = 30, 8
+mesh_max = 201, 220
+probe_count = 10, 10
+algorithm = bicubic
+mesh_pps = 4, 4
+fade_start = 1
+fade_end = 10
+fade_target = 0
+
+[bed_screws]
+screw1 = 31,37
+screw1_name = Front left screw
+screw2 = 31,208
+screw2_name = Rear left screw
+screw3 = 201,208
+screw3_name = Rear right screw
+screw4 = 201,37
+screw4_name = Front right screw
+
+[screws_tilt_adjust]
+screw1 = 74.5, 40
+screw1_name = Front left screw
+screw2 = 74.5, 210
+screw2_name = Rear left screw
+screw3 = 245, 210
+screw3_name = Rear right screw
+screw4 = 245, 40
+screw4_name = Front right screw
+horizontal_move_z = 10
+speed = 250
+screw_thread = CW-M3
+
+[gcode_arcs]
+resolution = 1.0
+
+[input_shaper]
+shaper_freq_x = 63.4
+shaper_type_x = ei
+shaper_freq_y = 36.6
+shaper_type_y = mzv
+
+[axis_twist_compensation]
+calibrate_start_x = 20
+calibrate_end_x = 200
+calibrate_y = 112.5
+z_compensations = 0.079167, -0.053333, -0.025833
+compensation_start_x = 20.0
+compensation_end_x = 200.0
+
+[bed_mesh default]
+version = 1
+points = 
+	-0.017833, -0.060805, -0.072722, -0.056916, -0.081111, -0.090305, -0.094500, -0.058694, -0.060389, -0.042083
+	0.074667, 0.034195, -0.002722, -0.004416, -0.013611, 0.004695, -0.034500, -0.006194, 0.007111, 0.022917
+	0.109667, 0.071695, 0.059778, 0.015584, 0.018889, 0.049695, 0.070500, 0.033806, 0.034611, 0.030417
+	0.127167, 0.094195, 0.059778, 0.063084, 0.036389, 0.059695, 0.063000, 0.058806, 0.054611, 0.057917
+	0.119667, 0.074195, 0.042278, 0.033084, 0.028889, 0.062195, 0.058000, 0.063806, 0.037111, 0.020417
+	0.112167, 0.056695, 0.042278, 0.013084, 0.016389, 0.019695, -0.002000, 0.016306, 0.004611, 0.020417
+	0.124667, 0.086695, 0.052278, 0.045584, 0.068889, 0.044695, 0.040500, 0.013806, 0.014611, 0.020417
+	0.127167, 0.056695, 0.057278, 0.025584, 0.018889, 0.014695, 0.020500, 0.023806, 0.012111, -0.007083
+	0.112167, 0.061695, 0.049778, 0.015584, 0.013889, 0.004695, 0.020500, 0.013806, -0.005389, -0.004583
+	0.094667, 0.029195, -0.022722, -0.071916, -0.128611, -0.095305, -0.054500, -0.023694, -0.037889, -0.032083
+tension = 0.2
+min_x = 30.0
+algo = bicubic
+y_count = 10
+mesh_y_pps = 4
+min_y = 8.0
+x_count = 10
+max_y = 219.95
+mesh_x_pps = 4
+max_x = 201.0
+=======================
+Loaded MCU 'mcu' 105 commands (v0.11.0-41-g9b60daf6 / gcc: (15:7-2018-q2-6) 7.3.1 20180622 (release) [ARM/embedded-7-branch revision 261907] binutils: (2.31.1-11+rpi1+11) 2.31.1)
+MCU 'mcu' config: ADC_MAX=4095 BUS_PINS_i2c1=PB6,PB7 BUS_PINS_i2c1a=PB8,PB9 BUS_PINS_i2c2=PB10,PB11 BUS_PINS_spi1=PA6,PA7,PA5 BUS_PINS_spi1a=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi3=PB4,PB5,PB3 CLOCK_FREQ=72000000 MCU=stm32f103xe PWM_MAX=255 RECEIVE_WINDOW=192 RESERVE_PINS_serial=PA10,PA9 SERIAL_BAUD=250000 STATS_SUMSQ_BASE=256 STEPPER_BOTH_EDGE=1
+Configured MCU 'mcu' (1024 moves)
+Loaded MCU 'pi' 113 commands (v0.11.0-267-g01ed8096 / gcc: (Debian 12.2.0-14) 12.2.0 binutils: (GNU Binutils for Debian) 2.40)
+MCU 'pi' config: ADC_MAX=4095 CLOCK_FREQ=50000000 MCU=linux PCA9685_MAX=4096 PWM_MAX=32768 STATS_SUMSQ_BASE=256
+Configured MCU 'pi' (1024 moves)
+Args: ['/home/dietpi/klipper/klippy/klippy.py', '/home/dietpi/printer_data/config/printer.cfg', '-I', '/home/dietpi/printer_data/comms/klippy.serial', '-l', '/home/dietpi/printer_data/logs/klippy.log', '-a', '/home/dietpi/printer_data/comms/klippy.sock']
+Git version: 'v0.12.0-55-gb5025580'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper
+CPU: 8 core ARMv7 Processor rev 3 (v7l)
+Python: '3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]'
+webhooks client 3002632464: {'program': 'Moonraker', 'version': 'v0.8.0-241-gca59516'}
+=============== Log rollover at Mon Jan  8 01:25:03 2024 ===============
+Resetting prediction variance 140699.272: freq=49999997 diff=-505907 stddev=5023.777
+Resetting prediction variance 140700.259: freq=49999434 diff=-1044562 stddev=50000.000
+Resetting prediction variance 140701.244: freq=49998274 diff=-1480369 stddev=50000.000
+Resetting prediction variance 140702.230: freq=49996629 diff=-1800922 stddev=50000.000
+Resetting prediction variance 140703.215: freq=49994628 diff=-2072646 stddev=50000.000
+Resetting prediction variance 140704.200: freq=49992325 diff=-2277792 stddev=50000.000
+Resetting prediction variance 140705.184: freq=49989795 diff=-2441298 stddev=50000.000
+Resetting prediction variance 140706.172: freq=49987083 diff=-2521994 stddev=50000.000
+Resetting prediction variance 140707.156: freq=49984281 diff=-2595344 stddev=50000.000
+Resetting prediction variance 140708.141: freq=49981397 diff=-2620192 stddev=50000.000
+Resetting prediction variance 140709.126: freq=49978486 diff=-2623631 stddev=50000.000
+Resetting prediction variance 140710.110: freq=49975571 diff=-2596000 stddev=50000.000
+Resetting prediction variance 140711.095: freq=49972686 diff=-2552504 stddev=50000.000
+Resetting prediction variance 140712.080: freq=49969850 diff=-2493536 stddev=50000.000
+Resetting prediction variance 140713.065: freq=49967079 diff=-2420548 stddev=50000.000
+Resetting prediction variance 140714.050: freq=49964388 diff=-2345386 stddev=50000.000
+Resetting prediction variance 140715.035: freq=49961781 diff=-2260048 stddev=50000.000
+Resetting prediction variance 140716.019: freq=49959269 diff=-2163924 stddev=50000.000
+Resetting prediction variance 140717.004: freq=49956863 diff=-2063376 stddev=50000.000
+Resetting prediction variance 140717.990: freq=49954568 diff=-1959587 stddev=50000.000
+Resetting prediction variance 140718.975: freq=49952389 diff=-1850318 stddev=50000.000
+Resetting prediction variance 140719.960: freq=49950331 diff=-1744905 stddev=50000.000
+Resetting prediction variance 140720.946: freq=49948389 diff=-1645666 stddev=50000.000
+Resetting prediction variance 140721.930: freq=49946558 diff=-1538771 stddev=50000.000
+Resetting prediction variance 140722.916: freq=49944846 diff=-1436476 stddev=50000.000
+Resetting prediction variance 140723.901: freq=49943247 diff=-1331355 stddev=50000.000
+Resetting prediction variance 140724.886: freq=49941764 diff=-1220057 stddev=50000.000
+Resetting prediction variance 140725.871: freq=49940406 diff=-1115832 stddev=50000.000
+Resetting prediction variance 140726.855: freq=49939163 diff=-1026471 stddev=50000.000
+Resetting prediction variance 140727.840: freq=49938020 diff=-939215 stddev=50000.000
+Resetting prediction variance 140728.825: freq=49936974 diff=-849490 stddev=50000.000
+Resetting prediction variance 140729.811: freq=49936027 diff=-753131 stddev=50000.000
+Resetting prediction variance 140730.797: freq=49935188 diff=-689639 stddev=50000.000
+Resetting prediction variance 140731.781: freq=49934419 diff=-607910 stddev=50000.000
+Resetting prediction variance 140732.766: freq=49933741 diff=-530122 stddev=50000.000
+Resetting prediction variance 140733.751: freq=49933150 diff=-469277 stddev=50000.000
+Resetting prediction variance 140734.736: freq=49932626 diff=-396003 stddev=50000.000
+Resetting prediction variance 140735.721: freq=49932185 diff=-337874 stddev=50000.000
+Resetting prediction variance 140736.706: freq=49931808 diff=-276979 stddev=50000.000

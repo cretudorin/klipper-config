@@ -1,0 +1,74 @@
+[server]
+host = 0.0.0.0
+port = 7125
+klippy_uds_address = /home/dietpi/printer_data/comms/klippy.sock
+
+[authorization]
+trusted_clients = 
+	10.0.0.0/8
+	127.0.0.0/8
+	169.254.0.0/16
+	172.16.0.0/12
+	192.168.0.0/16
+	FE80::/10
+	::1/128
+cors_domains = 
+	*.lan
+	*.local
+	*://localhost
+	*://localhost:*
+	*://my.mainsail.xyz
+	*://app.fluidd.xyz
+
+[octoprint_compat]
+
+[history]
+
+[update_manager]
+channel = dev
+refresh_interval = 168
+
+[update_manager mainsail-config]
+type = git_repo
+primary_branch = master
+path = ~/mainsail-config
+origin = https://github.com/mainsail-crew/mainsail-config.git
+managed_services = klipper
+
+[update_manager mainsail]
+type = web
+channel = stable
+repo = mainsail-crew/mainsail
+path = ~/mainsail
+
+[update_manager crowsnest]
+type = git_repo
+path = ~/crowsnest
+origin = https://github.com/mainsail-crew/crowsnest.git
+managed_services = crowsnest
+install_script = tools/pkglist.sh
+
+[power nous4]
+type = homeassistant
+address = 192.168.178.60
+port = 8123
+protocol = http
+device = switch.nous4_switch
+token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI3ZDRhNDc5ZDg4NDk0OGIwYjMzMzQ4YmUwN2RjNTY3ZiIsImlhdCI6MTY5NzQ2Mjc2NSwiZXhwIjoyMDEyODIyNzY1fQ.LXp-8zcFRI-cDFT5TIncg8M7f6o0iV-iMp04tnVa2N8
+domain = switch
+bound_services = klipper
+locked_while_printing = True
+on_when_job_queued = True
+restart_klipper_when_powered = True
+restart_delay = 2
+
+[update_manager moonraker-obico]
+type = git_repo
+path = /home/dietpi/moonraker-obico
+origin = https://github.com/TheSpaghettiDetective/moonraker-obico.git
+env = /home/dietpi/moonraker-obico/../moonraker-obico-env/bin/python
+requirements = requirements.txt
+install_script = install.sh
+managed_services = 
+	moonraker-obico
+
